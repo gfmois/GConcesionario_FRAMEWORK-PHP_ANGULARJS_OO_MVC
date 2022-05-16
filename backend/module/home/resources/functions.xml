@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<functions>
+    <function>
+        <name>view</name>
+        <uri>view</uri>
+    </function>
+    <function>
+        <name>carousel</name>
+        <uri>carousel</uri>
+    </function>
+    <function>
+        <name>category</name>
+        <uri>category</uri>
+    </function>
+    <function>
+        <name>brands</name>
+        <uri>brands</uri>
+    </function>
+    <function>
+        <name>loadMore</name>
+        <uri>loadMore</uri>
+    </function>
+    <function>
+        <name>types</name>
+        <uri>types</uri>
+    </function>
+</functions>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="GConcesionario_FRAMEWORK_ANGULARJS_OO_MVC">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GConcesionario</title>
+
+    <!--================== ANGULAR JS ==================-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.9/angular-route.min.js"></script>
+
+    <!-- Toastr AngularJS -->
+    <link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
+    <script src="https://npmcdn.com/angular-toastr/dist/angular-toastr.tpls.js"></script>
+
+    <link rel="stylesheet" href="frontend/view/css/zerogrid.css">
+    <link rel="stylesheet" href="frontend/view/css/style.css">
+
+    <script src="frontend/Router.js"></script>
+    <script src="frontend/APIConnector.js"></script>
+
+    <!-- Contact Controler - Service - Style -->
+    <script src="frontend/module/contact/controller/ContactController.js"></script>
+    <script src="frontend/module/contact/services/ContactService.js"></script>
+    <link rel="stylesheet" href="frontend/view/css/contact.css">
+
+    <!-- Home Controller -->
+    <script src="frontend/module/home/controller/HomeController.js"></script>
+
+    <script type="module" src="frontend/view/js/main.js"></script>
+    <link rel="stylesheet" href="frontend/view/css/dropdown.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.8/dist/sweetalert2.all.min.js"></script>
+
+    <link href="frontend/view/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="frontend/view/css/searchMenu.css">
+    <script src="frontend/view/js/ajaxPromises.js"></script>
+    <script src="frontend/module/search/view/js/Search.js"></script>
+
+    <script src="https://kit.fontawesome.com/9eb25c000f.js" crossorigin="anonymous"></script>
+
+    <link href="frontend/view/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <script src="https://cdn.auth0.com/js/auth0-spa-js/1.13/auth0-spa-js.production.js"></script>
+
+    <!-- Swipper -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
+    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+    <link rel="stylesheet" href="frontend/view/css/swiper.css">
+
+    <!-- [if lt IE 8]>
+       <div style=' clear: both; text-align:center; position: relative;'>
+         <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode">
+           <img src="http://storage.ie6countdown.com/assets/100/images/banners/warning_bar_0000_us.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today." />
+        </a>
+      </div>
+    <![endif]-->
+    <!--[if lt IE 9]>
+		<script src="js/html5.js"></script>
+		<script src="js/css3-mediaqueries.js"></script>
+	<![endif] -->
+
+
+</head>
+
+<body>
+    <div ng-include="'frontend/view/include/menu.html'"></div>
+    <div ng-view autoscroll="true"></div>
+    <div ng-include="'frontend/view/include/footer.html'"></div>
+</body>
+
+</html>

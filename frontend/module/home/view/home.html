@@ -1,0 +1,96 @@
+<div class="wrap-body">
+    <section id="container">
+        <div class="wrap-container">
+            <section class="content-box box-1">
+                <div class="zerogrid">
+                    <div class="header">
+                        <h2 class="heading">
+                            <span>Nuestras Marcas</span>
+                        </h2>
+                        <p>Ofrecemos las mejores marcas para nuestros clientes.</p>
+                    </div>
+                    <div class="swiper row">
+                        <div class="swiper-wrapper" id="logo">
+                            <div class="swiper-slide m-slider__item" ng-repeat="item in slideC">
+                                <div class="m-card" id="{{ item.id_brand }}">
+                                    <div class="m-card__header" ng-style="{'background-image':'url(frontend/{{ item.url_brand }})'}"></div>
+                                    <div class="m-card__body">{{ item.brand_name }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-pagination"></div>
+                    </div>
+                </div>
+            </section>
+            <section class="content-box box-2">
+                <div class="zerogrid">
+                    <div class="row">
+                        <div class="header">
+                            <h2 class="heading">
+                                <span>Bienvenido</span>
+                            </h2>
+                            <p>Toda la información sobre nuestro concesionario a continuación</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content-box box-3">
+                <div class="zerogrid">
+                    <div class="row" id="ppost">
+                        <div class="header">
+                            <h2 class="heading">
+                                <span>Nuestras Categorias</span>
+                            </h2>
+                        </div>
+                        <div class="post c-align" id="{{category.id_cat}}" ng-repeat="category in sliderCat">
+                            <div class="col-1-2 align-category">
+                                <img src=" frontend/{{ category.url_cat }}">
+                            </div>
+                            <div class="col-1-2">
+                                <div class="wrapper">
+                                    <h3>{{ category.cat_name }}</h3>
+                                    <p>{{ category.description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content-box box-4">
+                <div class="zerogrid">
+                    <div class="row">
+                        <div class="header">
+                            <h2 class="heading">
+                                <span>Nuestros Tipos</span>
+                            </h2>
+                        </div>
+                        <div class="swiper row">
+                            <div class="swiper-wrapper" id="logo">
+                                <div class="swiper-slide m-slider__item" ng-repeat="type in slideType">
+                                    <div class="wrap-col item cat" id="{{ type.id_type }}">
+                                        <i class="{{ type.icon_class }}" aria-hidden="true"></i>
+                                        <h3>{{ type.type_name }}</h3>
+                                        <p>{{ type.description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="swiper-pagination"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="content-box box-5">
+                <div class="zerogrid">
+                    <div class="row">
+                        <div class="header">
+                            <h2 class="heading">
+                                <span>Noticias</span>
+                            </h2>
+                        </div>
+                        <!-- Noticias -->
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>

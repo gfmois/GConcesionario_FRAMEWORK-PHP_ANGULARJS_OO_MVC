@@ -1,0 +1,10 @@
+<functions>
+    <function>
+        <name>view</name>
+        <uri>view</uri>
+    </function>
+    <function>
+        <name>sendContactMessage</name>
+        <uri>sendContactMessage</uri>
+    </function>
+</functions>

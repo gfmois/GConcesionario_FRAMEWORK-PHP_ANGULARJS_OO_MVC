@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<modules>
+    <module>
+        <name>home</name>
+        <uri>home</uri>
+    </module>
+    <module>
+        <name>shop</name>
+        <uri>shop</uri>
+    </module>
+    <module>
+        <name>search</name>
+        <uri>search</uri>
+    </module>
+    <module>
+        <name>contact</name>
+        <uri>contact</uri>
+    </module>
+    <module>
+        <name>auth</name>
+        <uri>auth</uri>
+    </module>
+</modules>
