@@ -1,9 +1,10 @@
-let app = angular.module('GConcesionario_FRAMEWORK_ANGULARJS_OO_MVC', ['ngRoute', 'toastr']);
+let app = angular.module('GConcesionario_FRAMEWORK_ANGULARJS_OO_MVC', ['ngRoute', 'toastr', 'routeStyles']);
 
 app.config(['$routeProvider', ($routeProvider) => {
     $routeProvider
         .when("/home", {
             templateUrl: "frontend/module/home/view/home.html",
+            css: ['frontend/view/css/swiper.css', 'https://unpkg.com/swiper@8/swiper-bundle.min.css'],
             controller: "homeController",
             resolve: {
                 carousel: (services) => {
@@ -17,8 +18,21 @@ app.config(['$routeProvider', ($routeProvider) => {
                 }
             }
         })
+        .when('/shop', {
+            templateUrl: "frontend/module/shop/view/Shop.html",
+            css: ['frontend/view/css/filtersDiv.css', 'frontend/view/css/listAll.css', 'frontend/view/css/shopList.css'],
+            controller: "shopController",
+            resolve: {
+                list: (services) => {
+                    return services.get('shop', 'allCars');
+                }
+            }
+        })
         .when("/contact", {
             templateUrl: "frontend/module/contact/view/contact.html",
             controller: "contactController",
+        })
+        .otherwise({
+            redirectTo: "/home"
         })
 }]);
