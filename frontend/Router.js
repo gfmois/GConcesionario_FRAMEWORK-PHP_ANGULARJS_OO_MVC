@@ -25,6 +25,9 @@ app.config(['$routeProvider', ($routeProvider) => {
             resolve: {
                 list: (services) => {
                     return services.get('shop', 'allCars');
+                },
+                filters: (services) => {
+                    return services.get('shop', 'cars');
                 }
             }
         })

@@ -14,8 +14,20 @@
                         <input type="text" placeholder="Ciudad" class="cityInput">
                     </li>
                 </ul>
-                <ul ng-repeat="">
-
+                <ul ng-repeat="obj in totalFilters">
+                    <li>
+                        <a ng-click="logThisAndScope()">Log this and Scope</a>
+                        <span class="title">
+                            {{ obj.name }}
+                            <i class="fas fa-angle-up" aria-hidden="true"></i>
+                        </span>
+                        <div class="content close" id="{{ obj.name }}">
+                            <div class="content-item" ng-repeat="item in obj.options">
+                                <input type="checkbox" id="{{ item.id }}">
+                                <p class="f-9">{{ item.name }}</p>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>

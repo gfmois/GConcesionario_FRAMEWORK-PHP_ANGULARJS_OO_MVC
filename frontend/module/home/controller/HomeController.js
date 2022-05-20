@@ -3,17 +3,21 @@ app.controller('homeController', ($scope, $window, carousel, category, type) => 
     $scope.sliderCat = category;
     $scope.slideType = type;
 
-    new Swiper('.swiper', {
-        direction: 'horizontal',
-        speed: 400,
-        loop: true,
-        slidesPerView: 3,
-        pagination: {
-            el: '.swiper-pagination',
-        },
-        autoplay: {
-            delay: 3500
-        },
-    })
+    setTimeout(() => {
+        new Swiper('.swiper', {
+            direction: 'horizontal',
+            speed: 400,
+            loop: true,
+            slideToClickedSlide: true,
+            loopedSlides: 50,
+            slidesPerView: 3,
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            autoplay: {
+                delay: 2500
+            },
+        })
+    }, 0)
 
 })
