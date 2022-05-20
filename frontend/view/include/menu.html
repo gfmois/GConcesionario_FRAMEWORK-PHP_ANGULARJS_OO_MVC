@@ -1,13 +1,13 @@
 <header>
     <div class="wrap-header zerogrid">
         <div class="row" id="menuRow">
-            <div id="cssmenu">
+            <div id="cssmenu" ng-class="{'hide': viewMenu}">
                 <ul>
                     <li class='active'><a href="#/home">Inicio</a></li>
                     <li><a href="#/shop">Vehículos</a></li>
                     <li><a href="#/contact">Contactanos</a></li>
                     <li>
-                        <a class="fa fa-search sIcon"></a>
+                        <a class="fa fa-search sIcon" ng-click="showMenu()"></a>
                     </li>
                     <li id="user">
                         <a href="#/auth" id="userIcon" class="fas fa-user-circle"></a>
@@ -15,7 +15,7 @@
                 </ul>
             </div>
             <a href='#/home' class="logo"><img src="frontend/view/images/logo.png" /></a>
-            <div class="search-menu">
+            <div class="search-menu" ng-class="{'hide': !viewMenu}">
                 <div class="custom-select">
                     <select class="catCB" id="catCB">
                         <option value="-">Todas las Categorías</option>
@@ -31,6 +31,9 @@
                 <input type="text" placeholder="Buscar..." id="search-input" autocomplete="off">
                 <button class="searchBtn">
                     <i class="fas fa-search-location"></i>
+                </button>
+                <button class="searchBtn">
+                    <i class="fas fa-close" ng-click="showMenu()"></i>
                 </button>
             </div>
         </div>

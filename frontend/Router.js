@@ -31,6 +31,11 @@ app.config(['$routeProvider', ($routeProvider) => {
                 }
             }
         })
+        .when('/auth', {
+            templateUrl: "frontend/module/auth/view/AuthForm.html",
+            css: "frontend/view/css/LoginForm.css",
+            controller: 'authController'
+        })
         .when("/contact", {
             templateUrl: "frontend/module/contact/view/contact.html",
             controller: "contactController",
@@ -39,3 +44,11 @@ app.config(['$routeProvider', ($routeProvider) => {
             redirectTo: "/home"
         })
 }]);
+
+app.run(($rootScope, searchServices) => {
+    $rootScope.viewMenu = false;
+
+    $rootScope.showMenu = () => {
+        $rootScope.viewMenu = !$rootScope.viewMenu
+    }
+})

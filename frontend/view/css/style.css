@@ -211,18 +211,38 @@ article img{display: inline-block;float: left;margin-right: 15px;border: 1px sol
 /* ---------------------------------------------------------------------------- */
 /* -------------------------------------Footer--------------------------------- */
 /* ---------------------------------------------------------------------------- */
+
+
+/* footer {
+  clear: both;
+    position: relative;
+    margin: -5em;
+    margin-top: 40px;
+    padding-top: 4em;
+    color: black;
+    width: inherit;
+    height: 3.2em;
+    background-color: #F3542D;
+    background-repeat: repeat-x;
+    z-index:-1;
+} */
+
 footer{
+  clear: both;
   margin-top: 40px;
   text-align: center;
   background: #F3542D; 
   z-index: 0;
-  /* position: fixed; */
-  position: static;
+  position: relative;
+  z-index: -1;
   left: 0;
   bottom: 0;
-  width: 100%;
+  width: inherit;
+  background-repeat: repeat-x;
   text-align: center;
 }
+
+
 footer a{color: #fff;}
 footer .wrap-footer{ 
   color: #fff;font-size: 13px;padding: 30px 20px;

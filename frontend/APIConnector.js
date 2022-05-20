@@ -23,7 +23,7 @@ app.factory('services', ['$http', '$q', ($http, $q) => {
         let promise = defered.promise;
 
         $http({
-            method: 'POST',
+            method: 'HEAD',
             url: servicesBase + module + "&op=" + option,
             data: data,
         }).success((data, status, headers, config) => {
@@ -33,6 +33,26 @@ app.factory('services', ['$http', '$q', ($http, $q) => {
         });
 
         return promise
+    }
+
+    obj.reqHeader = (module, option, header, data = undefined) => {
+        let defered = $q.defer();
+        let promise = defered.promise;
+
+        $http({
+            method: "POST",
+            url: servicesBase + module + "&op=" + option,
+            data: data,
+            headers: {
+                token: header
+            }
+        }).success((data, status, headers, config) => {
+            defered.resolve(data)
+        }).error((data, status, headers, config) => {
+            defered.reject(data)
+        })
+
+        return promise;
     }
 
     return obj;

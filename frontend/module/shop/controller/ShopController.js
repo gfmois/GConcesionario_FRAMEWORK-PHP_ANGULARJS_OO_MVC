@@ -1,12 +1,14 @@
-app.controller('shopController', ($scope, $window, list, filters) => {
+app.controller('shopController', ($scope, $window, list, filters, shopServices) => {
     $scope.cars = list[0];
     $scope.totalFilters = []
     $scope.filterName = [
         "Marcas", "Modelos", "Tipos", "Carroceria", "Categoria"
     ];
+    $scope.active_ckbox = {};
 
-    $scope.logThisAndScope = () => {
-        console.log(this, $scope);
+    $scope.hide = false;
+    $scope.setChange = function() {
+        shopServices.addLike()
     }
 
     filters.forEach((element, index) => {
@@ -28,5 +30,4 @@ app.controller('shopController', ($scope, $window, list, filters) => {
         $scope.totalFilters.push(t_obj)
     });
 
-    console.log($scope.totalFilters);
 })

@@ -16,15 +16,15 @@
                 </ul>
                 <ul ng-repeat="obj in totalFilters">
                     <li>
-                        <a ng-click="logThisAndScope()">Log this and Scope</a>
-                        <span class="title">
+                        <span class="title" ng-click="hide = !hide"> <!--  ng-click="toggle = !toggle" -->
                             {{ obj.name }}
                             <i class="fas fa-angle-up" aria-hidden="true"></i>
                         </span>
-                        <div class="content close" id="{{ obj.name }}">
+                        <div ng-show="hide" class="content" ng-class="hide" id="{{ obj.name }}">
+                            <!-- ng-class="{'open' : toggle, 'close': !toggle}" -->
                             <div class="content-item" ng-repeat="item in obj.options">
-                                <input type="checkbox" id="{{ item.id }}">
-                                <p class="f-9">{{ item.name }}</p>
+                                <input type="checkbox" ng-click="setChange()"  id="{{ item.id }}">
+                                <p class="f-9 ">{{ item.name }}</p>
                             </div>
                         </div>
                     </li>
@@ -32,13 +32,13 @@
             </div>
         </div>
     </div>
-    <div class="itemsDiv" id="iList">
-        <article ng-repeat="car in cars" class="card" id="{{ car.vin_number }}">
-            <img src="frontend/{{ car.carUrl }}" style="height: 119px; width: 198px;">
-            <div class="text" id="info">
+    <div class="itemsDiv " id="iList ">
+        <article ng-repeat="car in cars " class="card " id="{{ car.vin_number }} ">
+            <img src="frontend/{{ car.carUrl }} " style="height: 119px; width: 198px; ">
+            <div class="text " id="info ">
                 <h3>{{ car.brand_name }} {{ car.model_name }}</h3>
-                <button class="likeBtn">
-                    <i class="fas fa-heart" aria-hidden="true"></i>
+                <button class="likeBtn ">
+                    <i class="fas fa-heart " aria-hidden="true "></i>
                 </button>
             </div>
         </article>
