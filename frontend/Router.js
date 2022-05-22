@@ -31,6 +31,15 @@ app.config(['$routeProvider', ($routeProvider) => {
                 }
             }
         })
+        .when('/details/:id', {
+            templateUrl: "frontend/module/shop/view/Shop.html",
+            css: ['frontend/view/css/details.css', 'frontend/view/css/thumbCarousel.css', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css', 'frontend/view/css/buttons.css'],
+            controller: "shopController",
+            resolve: {
+                list:() => {},
+                filters: () => {}
+            }
+        })
         .when('/auth', {
             templateUrl: "frontend/module/auth/view/AuthForm.html",
             css: "frontend/view/css/LoginForm.css",
@@ -38,6 +47,7 @@ app.config(['$routeProvider', ($routeProvider) => {
         })
         .when("/contact", {
             templateUrl: "frontend/module/contact/view/contact.html",
+            css: "frontend/view/css/contact.css",
             controller: "contactController",
         })
         .otherwise({

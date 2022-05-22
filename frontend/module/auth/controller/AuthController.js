@@ -1,3 +1,3 @@
-app.controller('authController', ($scope, $window) => {
+app.controller('authController', ($scope) => {
     $scope.swapMenu = false;
 })

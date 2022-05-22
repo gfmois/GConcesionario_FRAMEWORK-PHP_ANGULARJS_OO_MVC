@@ -24,7 +24,7 @@
             return $this->bll->getFromCarBLL($id);
         }
 
-        public function loadFromFilters(Array $options) {
+        public function loadFromFilters($options) {
             return $this->bll->getFromFilters($options[0], $options[1]);
         }
 

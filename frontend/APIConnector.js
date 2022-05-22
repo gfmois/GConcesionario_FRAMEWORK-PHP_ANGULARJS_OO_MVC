@@ -23,7 +23,7 @@ app.factory('services', ['$http', '$q', ($http, $q) => {
         let promise = defered.promise;
 
         $http({
-            method: 'HEAD',
+            method: 'POST',
             url: servicesBase + module + "&op=" + option,
             data: data,
         }).success((data, status, headers, config) => {

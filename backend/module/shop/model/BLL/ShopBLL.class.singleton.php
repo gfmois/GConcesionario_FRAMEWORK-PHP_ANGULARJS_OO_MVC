@@ -26,7 +26,7 @@
             return $this->shopDAO->getDataFromCar($this->db, $id);
         }
 
-        public function getFromFilters(Array $filters, int $page) {
+        public function getFromFilters($filters, int $page) {
             return $this->shopDAO->getDataFromFilteredCars($this->db, $filters, $page);
         }
 

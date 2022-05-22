@@ -65,10 +65,11 @@
             return $stmt;
         }
 
-        public function getDataFromFilteredCars(Connection $db, Array $filters, int $pagination) {
+        public function getDataFromFilteredCars(Connection $db, $filters, int $pagination) {
             if ($pagination != null || 0) $pagination = $pagination - 1;
 
             $limitPage = $pagination * 8;
+            $total = 0;
 
             if (!isset($filters)) $sql = "SELECT * FROM cars";
             else {
@@ -81,6 +82,7 @@
                     unset($llave);
                     $llave = $key;
                     for ($i = 0; $i < count($filters[$key]); $i++) {
+                        $total++;
                             if (key($filters) && $i == 0) {
                                 if ($llave == array_keys($filters)[0]) {
                                     if ($llave == "id_brand") {
@@ -120,7 +122,15 @@
                                     } 
                                 } else {
                                     if ($llave != "id_brand" && $llave != "city") {
-                                        $sql .= " AND c." . $llave . " = " . '"' . $filters[$key][0] . '"' ;
+                                        if (count($filters[$llave]) > 1) {
+                                            $sql .= " AND (c." . $llave . " = " . '"' . $filters[$key][0] . '"';
+                                            for ($j = 1; $j < count($filters[$llave]); $j++) {
+                                                $sql .= " OR c." . $llave . " = " . '"' . $filters[$key][$j] . '"';
+                                            }
+                                        } else {
+                                            $sql .= " AND (c." . $llave . " = " . '"' . $filters[$key][0] . '"';
+                                        }
+                                        $sql .= ")";
                                     } else if ($llave == "id_brand") {
                                         if (count($filters[$llave]) > 1) {
                                             $sql .= " AND " . " c.id_model IN " . "(SELECT m.id_model FROM model m WHERE m.id_brand = " . "'" . $filters[$key][0] . "'";
@@ -133,16 +143,17 @@
                                         $sql .= ")";
                                     }
                                 }
-                            } else if ($llave != "id_brand" && $llave != "orderBy") {
-                                $sql .= " OR c." . $llave . " = " . '"' . $filters[$key][$i] . '"';
                             }
-
+                            // } else if ($llave != "id_brand" && $llave != "orderBy") {
+                            //     $sql .= " OR c." . $llave . " = " . '"' . $filters[$key][$i] . '"';
+                            // }
+                            
+                        }
+                        
                     }
-
-                }
                 
-                $sql .= " LIMIT $limitPage, 8";    
-
+                $sql .= " LIMIT $limitPage, 8";
+                // return $sql;
                 $stmt = $db->select($sql);
                 return $db->list($stmt);
             }
