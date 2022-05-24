@@ -1,5 +1,11 @@
 app.factory('shopServices', ['services', '$rootScope', (services, $rootScope) => {
-    let service = { setFilter: setFilter, getCarDetails: getCarDetails, getFilteredCars: getFilteredCars };
+    let service = { 
+        setFilter: setFilter, 
+        getCarDetails: getCarDetails, 
+        getFilteredCars: getFilteredCars, 
+        setLike: setLike,
+        getPagination: getPagination
+    };
     let filters = {
         city: [],
         id_brand: [],
@@ -78,5 +84,31 @@ app.factory('shopServices', ['services', '$rootScope', (services, $rootScope) =>
         return services.post('shop', 'fromFilters', {filters: JSON.parse(localStorage.getItem('filters'))}).then((data) => {
             return data;
         })
+    }
+
+    async function getPagination(list) {
+        let f_obj = JSON.parse(localStorage.getItem('filters'));
+        let n_pages = 0;
+        let hasFilters = false;
+        
+        for (let i = 0; i < Object.keys(f_obj).length; i++) {
+            if (Object.values(f_obj)[i].length > 0) {
+                hasFilters = true;
+            }
+        }
+
+        await getFilteredCars().then((data) => {
+            if (hasFilters) {
+                n_pages = Math.ceil(data.length / 8)
+            } else {
+                n_pages = Math.ceil(list[1][0].n_cars / 8);
+            }
+        });
+        
+        $rootScope.get_n_pages = n_pages
+    }
+
+    function setLike(id) {
+        return id;
     }
 }])

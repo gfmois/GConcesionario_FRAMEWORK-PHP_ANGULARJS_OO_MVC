@@ -20,7 +20,7 @@ app.config(['$routeProvider', ($routeProvider) => {
         })
         .when('/shop', {
             templateUrl: "frontend/module/shop/view/Shop.html",
-            css: ['frontend/view/css/filtersDiv.css', 'frontend/view/css/listAll.css', 'frontend/view/css/shopList.css'],
+            css: ['frontend/view/css/filtersDiv.css', 'frontend/view/css/listAll.css', 'frontend/view/css/shopList.css', 'frontend/view/css/likeBtn.css', 'frontend/view/css/pagination.css'],
             controller: "shopController",
             resolve: {
                 list: (services) => {
