@@ -1,23 +1,78 @@
-app.controller('shopController', ($scope, $rootScope, $routeParams, $route, list, filters, shopServices) => {
+app.controller('shopController', ($scope, $rootScope, $routeParams, $route, $timeout, cfpLoadingBar, list, filters, shopServices) => {
+    const start = () => {
+        cfpLoadingBar.start();
+    }
+
+    const complete = () => {
+        cfpLoadingBar.complete();
+    }
+
+    start();
+    $scope.fakeIntro = true;
+    $timeout(function() {
+      complete();
+      $scope.fakeIntro = false;    
+      ck_fakeAnimation()    
+    }, 1000);
+
     let path = $route.current.originalPath.split('/');
-    if (path[1] == "shop") {
-        $scope.detailsView = false;
-        $scope.shopView = true;
-    } else if (path[1] == "details") {
-        $scope.detailsView = true;
-        $scope.shopView = false;
+
+    function ck_fakeAnimation() {
+        if (path[1] == "shop") {
+            if (!$scope.fakeIntro) {
+                $scope.detailsView = false;
+                $scope.shopView = true;
+            }
+        } else if (path[1] == "details") {
+            $scope.detailsView = true;
+            $scope.shopView = false;
+        }
     }
 
     $scope.count = 0;
-
-    // FIXME: Carga solo cuando cierro el panel de opciones.
+    
+    // --------> PAGINATION <---------
+    // FIXME: Carga solo cuando cierro el panel de opciones.--
     $scope.get_n_page = shopServices.getPagination(list);
+    $scope.nPage = 0;
 
+    // --------> DETAILS <----------
     // Imagen Grande del details
     $scope.initImage = 0;
     $scope.setInitImage = function() {
         $scope.initImage = this.$parent.$parent.carDetails.images.findIndex((item) => item.src == this.img.src);
     }
+
+    $scope.getDetails = function(id = null) {
+        let checkID = id == null ? this.car.id : id;
+
+        shopServices.getCarDetails(checkID).then((data) => {
+            $rootScope.carDetails = data;
+        });
+
+        location.href = "#/details/" + checkID;
+    }
+    
+    if (path[1] == "details") {
+        $scope.getDetails($routeParams.id);
+
+        Fancybox.bind("#gallery a", {
+            groupAll: true,
+            keyboard: {
+                Escape: "close",
+                Delete: "close",
+                Backspace: "close",
+                PageUp: "next",
+                PageDown: "prev",
+                ArrowUp: "next",
+                ArrowDown: "prev",
+                ArrowRight: "next",
+                ArrowLeft: "prev",
+            }
+        });
+    }
+
+    // ----------> SHOP <------------
 
     $scope.cars = list?.length > 0 ? list[0] : [];
     $scope.totalFilters = []
@@ -60,37 +115,15 @@ app.controller('shopController', ($scope, $rootScope, $routeParams, $route, list
 
     }
 
-    $scope.getDetails = function(id = null) {
-        let checkID = id == null ? this.car.id : id;
-
-        shopServices.getCarDetails(checkID).then((data) => {
-            $rootScope.carDetails = data;
+    $scope.changePage = function() {
+        $scope.nPage = this.index 
+        shopServices.getPageCars(this.index +1).then((cars) => {
+            $scope.cars = cars[0].length > 0 ? cars[0] : []
         });
-
-        location.href = "#/details/" + checkID;
     }
 
     $scope.setLike = function() {
         console.log(shopServices.setLike(this.car.id));
-    }
-
-    if (path[1] == "details") {
-        $scope.getDetails($routeParams.id);
-
-        Fancybox.bind("#gallery a", {
-            groupAll: true,
-            keyboard: {
-                Escape: "close",
-                Delete: "close",
-                Backspace: "close",
-                PageUp: "next",
-                PageDown: "prev",
-                ArrowUp: "next",
-                ArrowDown: "prev",
-                ArrowRight: "next",
-                ArrowLeft: "prev",
-            }
-        });
     }
     
     function set_hlight_filters() {

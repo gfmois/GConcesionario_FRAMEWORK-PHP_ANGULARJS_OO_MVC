@@ -8,7 +8,8 @@ app.factory('services', ['$http', '$q', ($http, $q) => {
 
         $http({
             method: 'GET',
-            url: servicesBase + module + '&op=' + funct
+            ignoreLoadingBar: true,
+            url: servicesBase + module + '&op=' + funct,
         }).success((data, status, headers, config) => {
             defered.resolve(data)
         }).error((data, status, headers, config) => {
@@ -26,6 +27,7 @@ app.factory('services', ['$http', '$q', ($http, $q) => {
             method: 'POST',
             url: servicesBase + module + "&op=" + option,
             data: data,
+            ignoreLoadingBar: true
         }).success((data, status, headers, config) => {
             defered.resolve(data)
         }).error((data, status, headers, config) => {

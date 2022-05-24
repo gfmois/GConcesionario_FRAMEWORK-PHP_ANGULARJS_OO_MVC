@@ -5,6 +5,7 @@
         // }
 
         function allCars() {
+            // print_r($_POST);
             echo json_encode(common::loadModel('ShopModel', 'loadAllCars', $_POST['pagination'] ?? 1));
         }
 

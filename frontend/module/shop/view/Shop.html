@@ -1,3 +1,5 @@
+<div ng-hide="fakeIntro"></div>
+
 <div id="shopList" ng-show="shopView">
     <div class="filterDiv" id="fDiv">
         <div class="filter">
@@ -45,23 +47,23 @@
     </div>
     <div class="pagination">
         <div class="pagination:container">
-            <div class="pagination:number arrow">
+            <!-- <div class="pagination:number arrow">
               <svg width="18" height="18">
                 <use xlink:href="#left" />
               </svg>
               <span class="arrow:text">Anterior</span> 
+            </div> -->
+            
+            <div ng-class="{'pagination:active': $index == nPage}" ng-click="changePage()" class="pagination:number" ng-repeat="(index, val) in [].constructor(get_n_pages) track by $index" id="{{ $index +1 }}">
+              {{ $index + 1 }}
             </div>
             
-            <div class="pagination:number" ng-repeat="x in [].constructor(get_n_pages) track by $index">
-              {{ $index +1 }}
-            </div>
-            
-            <div class="pagination:number arrow">
+            <!-- <div class="pagination:number arrow">
                 <span class="arrow:text">Siguiente</span>
                 <svg width="18" height="18">
                     <use xlink:href="#right" />
                 </svg>
-            </div>
+            </div> -->
         </div>
           
         <svg class="hide">

@@ -1,10 +1,11 @@
-app.factory('shopServices', ['services', '$rootScope', (services, $rootScope) => {
+app.factory('shopServices', ['services', '$rootScope', '$route', (services, $rootScope, $route) => {
     let service = { 
         setFilter: setFilter, 
         getCarDetails: getCarDetails, 
         getFilteredCars: getFilteredCars, 
         setLike: setLike,
-        getPagination: getPagination
+        getPagination: getPagination,
+        getPageCars: getPageCars
     };
     let filters = {
         city: [],
@@ -91,24 +92,32 @@ app.factory('shopServices', ['services', '$rootScope', (services, $rootScope) =>
         let n_pages = 0;
         let hasFilters = false;
         
-        for (let i = 0; i < Object.keys(f_obj).length; i++) {
-            if (Object.values(f_obj)[i].length > 0) {
-                hasFilters = true;
+        if ($route.current.originalPath.split('/')[1] != "details") {
+            for (let i = 0; i < Object.keys(f_obj).length; i++) {
+                if (Object.values(f_obj)[i].length > 0) {
+                    hasFilters = true;
+                }
             }
-        }
 
-        await getFilteredCars().then((data) => {
+            await getFilteredCars().then((data) => {
             if (hasFilters) {
                 n_pages = Math.ceil(data.length / 8)
             } else {
                 n_pages = Math.ceil(list[1][0].n_cars / 8);
             }
-        });
-        
-        $rootScope.get_n_pages = n_pages
+            });
+         
+            $rootScope.get_n_pages = n_pages
+        }
     }
 
     function setLike(id) {
         return id;
+    }
+
+    function getPageCars(page) {
+        return services.post('shop', 'allCars', {pagination: page}).then((data) => {
+            return data
+        })
     }
 }])

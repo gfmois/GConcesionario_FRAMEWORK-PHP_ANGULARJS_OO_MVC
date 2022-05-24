@@ -1,6 +1,8 @@
-let app = angular.module('GConcesionario_FRAMEWORK_ANGULARJS_OO_MVC', ['ngRoute', 'toastr', 'routeStyles']);
+let app = angular.module('GConcesionario_FRAMEWORK_ANGULARJS_OO_MVC', ['ngRoute', 'toastr', 'routeStyles', 'angular-loading-bar']);
 
-app.config(['$routeProvider', ($routeProvider) => {
+app.config(['$routeProvider', 'cfpLoadingBarProvider', ($routeProvider, cfpLoadingBarProvider) => {
+    cfpLoadingBarProvider.includeSpinner = false;
+    cfpLoadingBarProvider.latencyThreshold = 500;
     $routeProvider
         .when("/home", {
             templateUrl: "frontend/module/home/view/home.html",
@@ -20,10 +22,11 @@ app.config(['$routeProvider', ($routeProvider) => {
         })
         .when('/shop', {
             templateUrl: "frontend/module/shop/view/Shop.html",
-            css: ['frontend/view/css/filtersDiv.css', 'frontend/view/css/listAll.css', 'frontend/view/css/shopList.css', 'frontend/view/css/likeBtn.css', 'frontend/view/css/pagination.css'],
+            css: ['frontend/view/css/filtersDiv.css', 'frontend/view/css/listAll.css', 'frontend/view/css/shopList.css', 'frontend/view/css/likeBtn.css', 'frontend/view/css/pagination.css', '//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css'],
             controller: "shopController",
             resolve: {
                 list: (services) => {
+                    cfpLoadingBarProvider.includeSpinner = true;
                     return services.get('shop', 'allCars');
                 },
                 filters: (services) => {
