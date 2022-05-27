@@ -1,4 +1,5 @@
-app.controller('homeController', ($scope, $window, carousel, category, type) => {
+app.controller('homeController', ($rootScope, $scope, $window, carousel, category, type, homeService) => {
+    $rootScope.final = false;
     $scope.slideC = carousel;
     $scope.sliderCat = category;
     $scope.slideType = type;
@@ -19,5 +20,16 @@ app.controller('homeController', ($scope, $window, carousel, category, type) => 
             },
         })
     }, 0)
+
+
+    $rootScope.limit = 0;
+    $rootScope.loadMore = function() {
+        homeService.getNews();
+        console.log(homeService.getNews());
+        $rootScope.limit += 3;
+
+    };    
+
+    $rootScope.loadMore();
 
 })

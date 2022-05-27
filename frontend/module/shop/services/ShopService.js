@@ -5,7 +5,8 @@ app.factory('shopServices', ['services', '$rootScope', '$route', (services, $roo
         getFilteredCars: getFilteredCars, 
         setLike: setLike,
         getPagination: getPagination,
-        getPageCars: getPageCars
+        getPageCars: getPageCars,
+        startMap: loadMaps
     };
     let filters = {
         city: [],
@@ -81,8 +82,8 @@ app.factory('shopServices', ['services', '$rootScope', '$route', (services, $roo
         return filters;
     }
 
-    function getFilteredCars() {
-        return services.post('shop', 'fromFilters', {filters: JSON.parse(localStorage.getItem('filters'))}).then((data) => {
+    async function getFilteredCars() {
+        return await services.post('shop', 'fromFilters', {filters: JSON.parse(localStorage.getItem('filters'))}).then((data) => {
             return data;
         })
     }
@@ -93,7 +94,7 @@ app.factory('shopServices', ['services', '$rootScope', '$route', (services, $roo
         let hasFilters = false;
         
         if ($route.current.originalPath.split('/')[1] != "details") {
-            for (let i = 0; i < Object.keys(f_obj).length; i++) {
+            for (let i = 0; i < Object.keys(f_obj)?.length; i++) {
                 if (Object.values(f_obj)[i].length > 0) {
                     hasFilters = true;
                 }
@@ -101,12 +102,13 @@ app.factory('shopServices', ['services', '$rootScope', '$route', (services, $roo
 
             await getFilteredCars().then((data) => {
             if (hasFilters) {
-                n_pages = Math.ceil(data.length / 8)
+                n_pages = Math.ceil(data?.length / 8);
             } else {
                 n_pages = Math.ceil(list[1][0].n_cars / 8);
             }
             });
-         
+        
+
             $rootScope.get_n_pages = n_pages
         }
     }
@@ -118,6 +120,52 @@ app.factory('shopServices', ['services', '$rootScope', '$route', (services, $roo
     function getPageCars(page) {
         return services.post('shop', 'allCars', {pagination: page}).then((data) => {
             return data
+        })
+    }
+
+    function loadMaps(cars) {
+        const initCity = { // Ontinyent
+            lat: 38.82374681367459,
+            lng: -0.6071697584863179
+        }
+
+        const map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 10,
+            center: initCity
+        });
+
+        cars.forEach((item) => {
+            let position = {
+                lat: parseFloat(item.lat),
+                lng: parseFloat(item.lng)
+            }
+
+            let nIcon = {
+                url: "frontend/" + item.carUrl, // url
+                scaledSize: new google.maps.Size(80, 50), // scaled size
+                origin: new google.maps.Point(0, 0), // origin
+                anchor: new google.maps.Point(0, 0) // anchor
+            };
+    
+            let lIcon = {
+                url: item.carUrl, // url
+                scaledSize: new google.maps.Size(130, 100), // scaled size
+                origin: new google.maps.Point(0, 0), // origin
+                anchor: new google.maps.Point(0, 0) // anchor
+            }
+
+            const marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                icon: nIcon
+            })
+
+            marker.set('id', item.id)
+
+            marker.addListener('click', function() {
+                location.href = "#/details/" + this.id
+            })
+
         })
     }
 }])

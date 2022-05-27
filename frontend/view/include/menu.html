@@ -15,21 +15,23 @@
                 </ul>
             </div>
             <a href='#/home' class="logo"><img src="frontend/view/images/logo.png" /></a>
-            <div class="search-menu" ng-class="{'hide': !viewMenu}">
+            <div class="search-menu" id="searchMn" ng-class="{'hide': !viewMenu}">
                 <div class="custom-select">
                     <select class="catCB" id="catCB">
                         <option value="-">Todas las Categorías</option>
+                        <option ng-repeat="cat in s_options.categories" value="{{cat.id}}">{{cat.name}}</option>
                     </select>
                     <span class="custom-arrow"></span>
                 </div>
                 <div class="custom-select">
                     <select class="brandCB" id="brCB">
                         <option value="-">Todas las Marcas</option>
+                        <option ng-repeat="brand in s_options.brands" value="{{brand.id}}">{{brand.name}}</option>
                     </select>
                     <span class="custom-arrow"></span>
                 </div>
                 <input type="text" placeholder="Buscar..." id="search-input" autocomplete="off">
-                <button class="searchBtn">
+                <button class="searchBtn" ng-click="search('searchMn')">
                     <i class="fas fa-search-location"></i>
                 </button>
                 <button class="searchBtn">

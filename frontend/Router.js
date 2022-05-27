@@ -6,11 +6,11 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider', ($routeProvider, cfpLoadi
     $routeProvider
         .when("/home", {
             templateUrl: "frontend/module/home/view/home.html",
-            css: ['frontend/view/css/swiper.css', 'https://unpkg.com/swiper@8/swiper-bundle.min.css'],
+            css: ['frontend/view/css/swiper.css', 'https://unpkg.com/swiper@8/swiper-bundle.min.css', 'frontend/view/css/home.css'],
             controller: "homeController",
             resolve: {
-                carousel: (services) => {
-                    return services.get('home', 'carousel');
+                carousel: async (services) => {
+                    return await services.get('home', 'carousel');
                 },
                 category: (services) => {
                     return services.get('home', 'category');
@@ -60,8 +60,15 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider', ($routeProvider, cfpLoadi
 
 app.run(($rootScope, searchServices) => {
     $rootScope.viewMenu = false;
+    $rootScope.options = []
+    searchServices.getFilterOptions();
 
     $rootScope.showMenu = () => {
         $rootScope.viewMenu = !$rootScope.viewMenu
     }
+
+    $rootScope.search = function(idParent) {
+        searchServices.setFindFilters(idParent);
+    }
+
 })

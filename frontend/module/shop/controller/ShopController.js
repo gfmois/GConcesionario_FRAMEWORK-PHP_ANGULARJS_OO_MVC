@@ -1,4 +1,5 @@
 app.controller('shopController', ($scope, $rootScope, $routeParams, $route, $timeout, cfpLoadingBar, list, filters, shopServices) => {
+    let path = $route.current.originalPath.split('/');
     const start = () => {
         cfpLoadingBar.start();
     }
@@ -13,9 +14,7 @@ app.controller('shopController', ($scope, $rootScope, $routeParams, $route, $tim
       complete();
       $scope.fakeIntro = false;    
       ck_fakeAnimation()    
-    }, 1000);
-
-    let path = $route.current.originalPath.split('/');
+    }, 750);
 
     function ck_fakeAnimation() {
         if (path[1] == "shop") {
@@ -31,8 +30,7 @@ app.controller('shopController', ($scope, $rootScope, $routeParams, $route, $tim
 
     $scope.count = 0;
     
-    // --------> PAGINATION <---------
-    // FIXME: Carga solo cuando cierro el panel de opciones.--
+    // --------> PAGINATION <---------;
     $scope.get_n_page = shopServices.getPagination(list);
     $scope.nPage = 0;
 
@@ -83,11 +81,11 @@ app.controller('shopController', ($scope, $rootScope, $routeParams, $route, $tim
 
     $scope.hide = false;
     $scope.setFilter = function() {
-        $scope.count++;
         localStorage.setItem('filters', JSON.stringify(shopServices.setFilter(this.item.id, $scope.filterName.findIndex((item) => item == this.$parent.obj.name) + 1)))
 
         shopServices.getFilteredCars().then((data) => {
             $scope.cars = data?.length > 0 ? data : list[0].length > 0 ? list[0] : []
+            shopServices.startMap($scope.cars)
         });
 
         shopServices.getPagination(list);
@@ -116,10 +114,13 @@ app.controller('shopController', ($scope, $rootScope, $routeParams, $route, $tim
     }
 
     $scope.changePage = function() {
-        $scope.nPage = this.index 
-        shopServices.getPageCars(this.index +1).then((cars) => {
-            $scope.cars = cars[0].length > 0 ? cars[0] : []
-        });
+        if (this.index != $scope.nPage) {
+            $scope.nPage = this.index 
+            shopServices.getPageCars(this.index +1).then((cars) => {
+                $scope.cars = cars[0]?.length > 0 ? cars[0] : []
+                shopServices.startMap($scope.cars)
+            });
+        }
     }
 
     $scope.setLike = function() {
@@ -140,7 +141,6 @@ app.controller('shopController', ($scope, $rootScope, $routeParams, $route, $tim
                                 parent: document.getElementById(Object.values(f_obj)[i][index]).parentElement.parentElement.parentElement.childNodes[1].innerText
                             })
                             document.getElementById(Object.values(f_obj)[i][index]).checked = true
-                            $scope.count++;
                         })
                     }
                 }
@@ -150,11 +150,13 @@ app.controller('shopController', ($scope, $rootScope, $routeParams, $route, $tim
                 })
 
                 shopServices.getFilteredCars().then((data) => {
-                    $scope.cars = data?.length > 0 ? data : list[0].length > 0 ? list[0] : []
+                    $scope.cars = data?.length > 0 ? data : list[0].length > 0 ? list[0] : [];
                 });
             }
         }, 0)
     }
+
+    shopServices.startMap($scope.cars)
 
     set_hlight_filters()
 })

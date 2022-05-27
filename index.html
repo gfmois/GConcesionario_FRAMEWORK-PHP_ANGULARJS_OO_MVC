@@ -27,12 +27,14 @@
 
     <!-- Home Controller -->
     <script src="frontend/module/home/controller/HomeController.js"></script>
+    <script src="frontend/module/home/services/HomeServices.js"></script>
+    <script src="frontend/module/home/directives/ScrollDirective.js"></script>
 
     <!-- Shop Controller -->
     <script src="frontend/module/shop/controller/ShopController.js"></script>
     <script src="frontend/module/shop/services/ShopService.js"></script>
     <script type='text/javascript' src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
-
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD1Q7SznVGu2-3Fez0cXbilC5XlDGtsv8Y&callback=initMap&libraries=&v=weekly"></script>
 
     <!-- Search Services -->
     <link rel="stylesheet" href="frontend/view/css/searchMenu.css">
@@ -45,6 +47,11 @@
     <!-- Dynamic CSS -->
     <script src="frontend/view/js/route-style.js"></script>
     <link rel="stylesheet" ng-repeat="style in css" ng-href="{{ style }}">
+
+    <!-- Infinite Scroll -->
+
+
+
 
     <link rel="stylesheet" href="frontend/view/css/dropdown.css">
 

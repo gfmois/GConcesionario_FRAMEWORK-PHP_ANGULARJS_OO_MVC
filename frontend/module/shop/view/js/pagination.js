@@ -11,7 +11,6 @@ function pagination(actualPage, op = 0) {
 
         paginationDOM.childNodes.forEach((v, k, p) => {
             if (v.className == "container") {
-                console.log(p);
                 if (paginationDOM.childNodes[k] != paginationDOM.lastChild) {
                     paginationDOM.childNodes[k].remove()
                 }

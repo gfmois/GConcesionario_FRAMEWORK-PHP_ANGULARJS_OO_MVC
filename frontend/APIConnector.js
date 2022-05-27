@@ -19,6 +19,23 @@ app.factory('services', ['$http', '$q', ($http, $q) => {
         return promise;
     }
 
+    obj.getAPI = (url) => {
+        let defered = $q.defer();
+        let promise = defered.promise;
+
+        $http({
+            method: 'GET',
+            ignoreLoadingBar: true,
+            url: url,
+        }).success((data, status, headers, config) => {
+            defered.resolve(data)
+        }).error((data, status, headers, config) => {
+            defered.reject(data)
+        });
+
+        return promise;
+    }
+
     obj.post = (module, option, data = undefined) => {
         let defered = $q.defer();
         let promise = defered.promise;
