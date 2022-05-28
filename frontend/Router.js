@@ -48,6 +48,10 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider', ($routeProvider, cfpLoadi
             css: "frontend/view/css/LoginForm.css",
             controller: 'authController'
         })
+        .when('/verify/:id', {
+            templateUrl: "frontend/module/auth/view/AuthForm.html",
+            controller: 'authController'
+        })
         .when("/contact", {
             templateUrl: "frontend/module/contact/view/contact.html",
             css: "frontend/view/css/contact.css",

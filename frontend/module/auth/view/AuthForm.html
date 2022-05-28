@@ -1,4 +1,4 @@
-<div id="loginForm">
+<div id="loginForm" ng-show="authView">
     <div class="authContainer" id="authContainer" ng-class="{'right-panel-active': swapMenu}">
         <div class="form-container sign-up-container">
            <form autocomplete="off" class="authForm" id="rForm">
@@ -12,12 +12,12 @@
                     </a>
                 </div>
                 <br>
-                <input type="text" class="authInput" placeholder="Usuario " name="username">
-                <input class="authInput" type="email" placeholder="Email " name="email">
-                <input class="authInput" type="password" placeholder="Contraseña " name="password">
-                <input class="authInput" type="password" placeholder="Repetir Contraseña " name="password_confirm">
+                <input type="text" class="authInput" ng-model="rg_username_inp" placeholder="Usuario " name="username">
+                <input class="authInput" type="email" ng-model="rg_email_inp" placeholder="Email " name="email">
+                <input class="authInput" type="password" ng-model="rg_passwd_inp" placeholder="Contraseña " name="password">
+                <input class="authInput" type="password" ng-model="rg_repasswd_inp" placeholder="Repetir Contraseña " name="password_confirm">
                 <br id="errorBr">
-                <input type="button" value="Crear Cuenta" id="registerBtn" ng-click="sign_in()">
+                <input type="button" value="Crear Cuenta" id="registerBtn" ng-click="checkRegister()">
             </form>
         </div>
         <div class="form-container sign-in-container">
@@ -32,10 +32,10 @@
                     </a>
                 </div>
                 <br>
-                <input id="username" class="authInput" name="username" type="text" placeholder="Usuario ">
-                <input id="password" class="authInput" name="password" type="password" placeholder="Contraseña ">
+                <input id="username" ng-model="lg_username_inp" class="authInput" name="username" type="text" placeholder="Usuario ">
+                <input id="password" ng-model="lg_passwd_inp"  class="authInput" name="password" type="password" placeholder="Contraseña ">
                 <br id="errorBrLogin">
-                <input type="button" value="Iniciar Sesión" id="loginBtn">
+                <input type="button" value="Iniciar Sesión" id="loginBtn" ng-click="checkLogin()">
             </form>
         </div>
         <div class="overlay-container">
@@ -53,4 +53,9 @@
             </div>
         </div>
     </div>
+</div>
+
+
+<div class="verify" ng-show="verifyView">
+    <h1>Hola Mundo!</h1>
 </div>

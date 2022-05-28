@@ -18,7 +18,7 @@
                     WHERE username 
                     LIKE " . "'" . $userInfo['username'] . "' 
                     OR email LIKE "  . "'" . $userInfo["email"] . "';";
-
+                    
                     
             $stmt = $db->select($sql);
             
@@ -30,11 +30,11 @@
                     ]
                 ]);
             } else {
-                $social = false;
+                $social = 0;
 
                 if (array_key_exists("uuid", $userInfo)) {
                     $tokenUuid = $userInfo["uuid"];
-                    $social = true;
+                    $social = 1;
                 } else $tokenUuid = common::generate_token_secure(21);
 
                 if (array_key_exists("password", $userInfo) && $userInfo["password"] == null) $passwd = null;
@@ -48,11 +48,12 @@
                 $query = "INSERT INTO users(uuid, verificated, username, password, email, token_email, avatar, social) 
                 VALUES (" . "'" . $tokenUuid . "', " . $verified . ", '" . $userInfo['username'] . "', 
                 '" . $passwd . 
-                "', " . "'" . $userInfo['email'] . "', '" . $tokenEmail . "', '" . $userInfo['avatar'] . "', " . $social . ")";
+                "', " . "'" . $userInfo['email'] . "', '" . $tokenEmail . "', '" . $userInfo['avatar'] . "', '" . $social . "')";
 
+                
                 $stmt_register = $db->select($query);
                 if ($stmt_register) {
-                    if ($userInfo["uuid"]) $social = true; else $social = false;
+                    if (array_key_exists('uuid', $userInfo)) $social = 1; else $social = 0;
                     return json_encode([
                         "result" => [
                             "message" => "Usuario creado correctamente",
