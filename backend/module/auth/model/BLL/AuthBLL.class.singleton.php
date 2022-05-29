@@ -24,7 +24,7 @@
             $return = json_decode($this->authDAO->account_register($this->db, $args));
 
             if ($return->result->code == 23) {
-                if ($return->result->social == false) $this->mailer->generateVerificationMail($args["username"], $args["email"], "http://localhost/GConcesionario_FRAMEWORK_ANGULARJS_OO_MVC/#/verification/" . $return->result->token);
+                if ($return->result->social == false) $this->mailer->generateVerificationMail($args["username"], $args["email"], "http://localhost/GConcesionario_FRAMEWORK_ANGULARJS_OO_MVC/#/verify/" . $return->result->token);
                 return [
                     "result" => [
                         "message" => $return->result->message,

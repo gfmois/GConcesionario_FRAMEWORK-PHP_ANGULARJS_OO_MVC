@@ -1,0 +1,52 @@
+
+
+.verifyContainer {
+    background-color: #f2f2f2;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.verifyForm {
+    width: 50%;
+    height: 50%;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.verifyForm h1 {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #000;
+}
+.verifyForm p {
+    font-size: 1.2em;
+    color: #000;
+}
+.verifyForm input {
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #000;
+    background-color: #fff;
+    font-size: 1.2em;
+    color: #000;
+    margin-top: 10px;
+}
+.verifyForm input:hover {
+    color: white;
+    background-color: #000;
+    cursor: pointer;
+}
+.verifyForm input:focus {
+    outline: none;
+}

@@ -1,7 +1,8 @@
 app.factory('authService', ['services', '$rootScope', (services, $rootScope) => {
     let service = { 
         sign_in: register,
-        checkUserInfo: checkUserInfo
+        checkUserInfo: checkUserInfo,
+        verifyUser: verifyUser
     }
     return service;
 
@@ -41,5 +42,12 @@ app.factory('authService', ['services', '$rootScope', (services, $rootScope) => 
                 }
             }
        }
+    }
+
+
+    function verifyUser(token) {
+        return services.post('auth', 'verification', {'token': token}).then((msg) => {
+            return msg;
+        })
     }
 }])

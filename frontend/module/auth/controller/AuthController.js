@@ -10,6 +10,30 @@ app.controller('authController', ($scope, $routeParams, $route, authService) => 
     } else if (path[1] == "verify") {
         $scope.verifyView = true;
         $scope.authView = false;
+
+        authService.verifyUser($routeParams.id).then((res) => {
+            if (res.result.code == 823) {
+                Swal.fire({
+                    title: res.result.message,
+                    text: "Bienvenido :)",
+                    icon: 'success',
+                    confirmButtonText: 'Iniciar sesión',
+                }).then(okay => {
+                    if (okay) {
+                        location.href = "#/auth";
+                   }})
+            } else {
+                Swal.fire({
+                    title: 'Ups...',
+                    text: res.result.message,
+                    icon: 'error',
+                    confirmButtonText: 'Iniciar sesión',
+                }).then(okay => {
+                    if (okay) {
+                        location.href = "#/auth";
+                   }})
+            }
+        })
     }
     
     $scope.checkLogin = function() {
@@ -55,5 +79,15 @@ app.controller('authController', ($scope, $routeParams, $route, authService) => 
             $scope.rg_error_msg = user_inf_result.result.message;
         }
 
+    }
+
+    $scope.goLogin = () => {
+        $route.routes
+        console.log($route);
+
+        $scope.authView = true;
+        $scope.verifyView = false;
+
+        location.href = '#/auth';
     }
 })

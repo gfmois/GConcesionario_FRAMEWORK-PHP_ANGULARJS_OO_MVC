@@ -50,6 +50,7 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider', ($routeProvider, cfpLoadi
         })
         .when('/verify/:id', {
             templateUrl: "frontend/module/auth/view/AuthForm.html",
+            css: ['frontend/view/css/verify.css'],
             controller: 'authController'
         })
         .when("/contact", {

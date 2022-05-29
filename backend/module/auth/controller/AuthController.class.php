@@ -13,7 +13,8 @@
         }
 
         function verification() {
-            echo json_encode(common::loadModel('AuthModel', 'loadVerification', $_GET['param']));
+            // print_r($_POST);
+            echo json_encode(common::loadModel('AuthModel', 'loadVerification', $_POST['token']));
         }
 
         function checkToken() {
