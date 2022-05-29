@@ -16,6 +16,8 @@
                 <input class="authInput" type="email" ng-model="rg_email_inp" placeholder="Email " name="email">
                 <input class="authInput" type="password" ng-model="rg_passwd_inp" placeholder="Contraseña " name="password">
                 <input class="authInput" type="password" ng-model="rg_repasswd_inp" placeholder="Repetir Contraseña " name="password_confirm">
+                <br>
+                <div ng-show="rg_error" id="errorDiv">{{ rg_error_msg }}</div>
                 <br id="errorBr">
                 <input type="button" value="Crear Cuenta" id="registerBtn" ng-click="checkRegister()">
             </form>

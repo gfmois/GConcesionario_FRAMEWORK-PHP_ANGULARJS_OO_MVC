@@ -25,7 +25,7 @@
             if (mysqli_num_rows($stmt)) {
                 return json_encode([
                     "result" => [
-                        "message" => "Nomber de Usuario o Email ya utilizado.",
+                        "message" => "Nombre de Usuario o Email ya utilizado.",
                         "code" => 4
                     ]
                 ]);
