@@ -6,7 +6,8 @@ app.factory('shopServices', ['services', '$rootScope', '$route', (services, $roo
         setLike: setLike,
         getPagination: getPagination,
         getPageCars: getPageCars,
-        startMap: loadMaps
+        startMap: loadMaps,
+        getUserLikes: getUserLikes
     };
     let filters = {
         city: [],
@@ -114,7 +115,15 @@ app.factory('shopServices', ['services', '$rootScope', '$route', (services, $roo
     }
 
     function setLike(id) {
-        return id;
+        return services.reqHeader('shop', 'likeStatus',  localStorage.getItem('token').split('"')[1], {id: id}).then((msg) => {
+            return msg;
+        })
+    }
+    
+    function getUserLikes() {
+        return services.reqHeader('shop', 'likes', localStorage.getItem('token').split('"')[1]).then((likes) => {
+            return likes;
+        })
     }
 
     function getPageCars(page) {

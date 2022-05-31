@@ -53,6 +53,10 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider', ($routeProvider, cfpLoadi
             css: ['frontend/view/css/verify.css'],
             controller: 'authController'
         })
+        .when('/profile', {
+            templateUrl: 'frontend/module/auth/view/Profile.html',
+            css: [],
+        })
         .when("/contact", {
             templateUrl: "frontend/module/contact/view/contact.html",
             css: "frontend/view/css/contact.css",
@@ -86,7 +90,8 @@ app.run(($rootScope, searchServices, authService) => {
         })
     }
 
-    if (localStorage.getItem('token') != null || localStorage.getItem('token') != undefined) {
-        console.log('token', localStorage.getItem('token'));
+    $rootScope.close_sesion = function() {
+        localStorage.removeItem('token');
+        location.reload()
     }
 })

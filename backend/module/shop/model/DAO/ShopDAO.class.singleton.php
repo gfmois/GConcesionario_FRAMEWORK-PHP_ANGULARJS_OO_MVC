@@ -175,25 +175,26 @@
 
         public function getDataLikes(Connection $db, $token) {
             $decodedUser = json_decode(JWT_Process::decode($token))->user;
-            $sql = "SELECT vin_number FROM cars WHERE id IN (SELECT idCar FROM likes WHERE username LIKE " . "'" . $decodedUser . "'" . ")";
+            $sql = "SELECT id FROM cars WHERE id IN (SELECT idCar FROM likes WHERE username LIKE " . "'" . $decodedUser . "'" . ")";
             return $db->list($db->select($sql));
         }
 
         public function getDataStatusLike(Connection $db, $token, $idCar) {
             $decodedUser = json_decode(JWT_Process::decode($token))->user;
-            $id = "SELECT id FROM cars WHERE vin_number = " . "'" . $idCar . "'";
-            $sql = "SELECT * FROM likes WHERE username LIKE " . "'" . $decodedUser . "' AND idCar = (" . $id . ")";
+            $sql = "SELECT * FROM likes WHERE username LIKE " . "'" . $decodedUser . "' AND idCar = $idCar";
             
             $stmt = $db->select($sql);
             if (mysqli_num_rows($stmt) > 0) {
-                $query = "DELETE FROM likes WHERE idCar = (" . $id . ") AND username LIKE " . "'" . $decodedUser . "'"; 
+                $query = "DELETE FROM likes WHERE idCar = $idCar AND username LIKE " . "'" . $decodedUser . "'"; 
+                $status = 0;
             } else  {
-                $query = "INSERT INTO likes VALUES (" . "'" . $decodedUser . "', (" . $id . "))";
+                $query = "INSERT INTO likes VALUES (" . "'" . $decodedUser . "', (" . $idCar . "))";
+                $status = 1;
             }
 
-            $rStmt = $db->select($query);
+            $db->select($query);
 
-            return $rStmt;
+            return $status;
         }
     }    
 ?>

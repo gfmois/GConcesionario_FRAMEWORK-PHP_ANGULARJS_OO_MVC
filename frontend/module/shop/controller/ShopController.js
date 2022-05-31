@@ -1,4 +1,17 @@
 app.controller('shopController', ($scope, $rootScope, $routeParams, $route, $timeout, cfpLoadingBar, list, filters, shopServices) => {
+    list[0].forEach((car) => {
+        let userLikes = shopServices.getUserLikes();
+        for (let i = 0; i < userLikes.length; i++) {
+            if (car.id == userLikes[i].id) {
+                car.liked = 1;
+            } else {
+                car.liked = 0;
+            }
+        }
+        console.log(list[0]);
+    })
+
+
     let path = $route.current.originalPath.split('/');
     const start = () => {
         cfpLoadingBar.start();
@@ -35,7 +48,6 @@ app.controller('shopController', ($scope, $rootScope, $routeParams, $route, $tim
     $scope.nPage = 0;
 
     // --------> DETAILS <----------
-    // Imagen Grande del details
     $scope.initImage = 0;
     $scope.setInitImage = function() {
         $scope.initImage = this.$parent.$parent.carDetails.images.findIndex((item) => item.src == this.img.src);
@@ -124,7 +136,9 @@ app.controller('shopController', ($scope, $rootScope, $routeParams, $route, $tim
     }
 
     $scope.setLike = function() {
-        console.log(shopServices.setLike(this.car.id));
+        shopServices.setLike(this.car.id).then((result) => {
+            this.car.liked = result;
+        })
     }
     
     function set_hlight_filters() {

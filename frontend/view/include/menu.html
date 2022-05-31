@@ -7,13 +7,13 @@
                     <li><a href='#/shop' data-item='shop'>Tienda</a></li>
                     <li><a href='#/contact' data-item='contact'>Contactanos</a></li>
                     <li ng-show="authSetting"><a href='#/auth'><i class="fas fa-user-circle"></i></a></li>
-                    <li ng-show="usrSetting" class="avatar">
-                        <a href="#">
+                    <li ng-show="usrSetting">
+                        <a class="avatar"> 
                             <img src="{{ usr_info.avatar }}" class="avatar-img" alt="Avatar">
                         </a>
                         <ul class="dropdown">
-                          <li><a href="#">Perfil</a></li>
-                          <li><a href="#">Cerrar Sesión</a></li>
+                          <li><a href="#/profile">Cambiar Contraseña</a></li>
+                          <li><a href="" ng-click="close_sesion()">Cerrar Sesión</a></li>
                         </ul>
                       </li>
                   </ul>
@@ -45,8 +45,4 @@
         </div>
     </div>
 
-
-    <div>
-        <h1>{{ usr_info }}</h1>
-    </div>
 </header>

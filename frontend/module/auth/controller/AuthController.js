@@ -87,6 +87,8 @@ app.controller('authController', ($scope, $rootScope, $routeParams, $route, auth
             lg_result.then((msg) => {
                 localStorage.setItem('token', msg);
                 $scope.usr_status = true;
+                location.reload()
+                location.href = "#/home";
             })
         } else {
             console.log(lg_result);
@@ -99,4 +101,5 @@ app.controller('authController', ($scope, $rootScope, $routeParams, $route, auth
 
         location.href = '#/auth';
     }
+
 })

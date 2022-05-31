@@ -18,7 +18,7 @@
   margin-bottom: -15px;
 }
 
-.bn54-liked {
+.liked {
   position: relative;
   outline: none;
   text-decoration: none;
@@ -46,7 +46,7 @@
   letter-spacing: 0.7px;
 }
 
-.bn54-liked .bn54span {
+.liked .bn54span {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: #ffffff;
   font-size: 12px;
@@ -59,7 +59,7 @@
   
 }
 
-.bn54-liked:hover {
+.liked:hover {
   animation: bn54rotate 0.7s ease-in-out both;
 }
 
@@ -68,7 +68,7 @@
   animation-delay: 0.06s;
 }
 
-.bn54-liked:hover .bn54span {
+.liked:hover .bn54span {
   animation: bn54storm 0.7s ease-in-out both;
   animation-delay: 0.06s;
 }

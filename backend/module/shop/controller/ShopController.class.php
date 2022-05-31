@@ -31,6 +31,6 @@
         }
 
         function likeStatus() {
-            echo json_encode(common::loadModel('ShopModel', 'loadLikeStatus', [apache_request_headers()['token'], $_POST["idCar"]]));
+            echo json_encode(common::loadModel('ShopModel', 'loadLikeStatus', [apache_request_headers()['token'], $_POST["id"]]));
         }
     }
