@@ -1,4 +1,11 @@
-app.controller('authController', ($scope, $routeParams, $route, authService) => {
+app.controller('authController', ($scope, $rootScope, $routeParams, $route, authService) => {
+
+    if ($rootScope.usrSetting == true) {
+        location.href = "#/home";
+    } else {
+        $rootScope.usr_info = null;
+    }
+
     let path = $route.current.originalPath.split('/');
     
     $scope.swapMenu = false;
@@ -12,25 +19,15 @@ app.controller('authController', ($scope, $routeParams, $route, authService) => 
         $scope.authView = false;
 
         authService.verifyUser($routeParams.id).then((res) => {
-            if (res.result.code == 823) {
-                Swal.fire({
-                    title: res.result.message,
-                    text: "Bienvenido :)",
-                    icon: 'success',
-                    confirmButtonText: 'Iniciar sesión',
-                }).then(okay => {
-                    if (okay) {
-                        location.href = "#/auth";
-                   }})
-            } else {
+            if (res.result.code != 823) {
                 Swal.fire({
                     title: 'Ups...',
                     text: res.result.message,
                     icon: 'error',
-                    confirmButtonText: 'Iniciar sesión',
+                    confirmButtonText: 'Está bien, llevame al inicio.',
                 }).then(okay => {
                     if (okay) {
-                        location.href = "#/auth";
+                        location.href = "#/home";
                    }})
             }
         })
@@ -49,7 +46,7 @@ app.controller('authController', ($scope, $routeParams, $route, authService) => 
             avatar: "https://api.multiavatar.com/" +  $scope.rg_username_inp + ".png"
         }
 
-        let user_inf_result = authService.checkUserInfo(usr_obj);
+        let user_inf_result = authService.rg_checkUserInfo(usr_obj);
 
         if (typeof user_inf_result.then == "function") {
            user_inf_result.then((data) => {
@@ -61,10 +58,8 @@ app.controller('authController', ($scope, $routeParams, $route, authService) => 
                         confirmButtonText: 'Aceptar',
                     })
                 } else if (data.result.code == 4 || data.result.code == 345) {
-                    console.log(data.result.message);
                     $scope.rg_error = true;
                     $scope.rg_error_msg = data.result.message;
-                    console.log($scope.rg_error_msg);
                 } else {
                     Swal.fire({
                         title: 'Ups...',
@@ -78,13 +73,27 @@ app.controller('authController', ($scope, $routeParams, $route, authService) => 
             $scope.rg_error = true;
             $scope.rg_error_msg = user_inf_result.result.message;
         }
+    }
 
+    $scope.checkLogin = () => {
+        let lg_obj = {
+            username: $scope.lg_username_inp != undefined ? $scope.lg_username_inp : null,
+            password: $scope.lg_passwd_inp != undefined ? $scope.lg_passwd_inp : null
+        }
+
+        let lg_result = authService.lg_checkUserInfo(lg_obj);
+
+        if (typeof lg_result.then == "function") {
+            lg_result.then((msg) => {
+                localStorage.setItem('token', msg);
+                $scope.usr_status = true;
+            })
+        } else {
+            console.log(lg_result);
+        }
     }
 
     $scope.goLogin = () => {
-        $route.routes
-        console.log($route);
-
         $scope.authView = true;
         $scope.verifyView = false;
 

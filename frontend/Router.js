@@ -63,7 +63,7 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider', ($routeProvider, cfpLoadi
         })
 }]);
 
-app.run(($rootScope, searchServices) => {
+app.run(($rootScope, searchServices, authService) => {
     $rootScope.viewMenu = false;
     $rootScope.options = []
     searchServices.getFilterOptions();
@@ -76,4 +76,17 @@ app.run(($rootScope, searchServices) => {
         searchServices.setFindFilters(idParent);
     }
 
+    $rootScope.usrSetting = localStorage.getItem('token') != null ? true : false;
+    $rootScope.authSetting = localStorage.getItem('token') == null ? true : false;
+
+    if (localStorage.getItem('token') != null) {
+        $rootScope.usr_status = true;
+        authService.getUserInfo().then((usr_info) => {
+            $rootScope.usr_info = usr_info;
+        })
+    }
+
+    if (localStorage.getItem('token') != null || localStorage.getItem('token') != undefined) {
+        console.log('token', localStorage.getItem('token'));
+    }
 })

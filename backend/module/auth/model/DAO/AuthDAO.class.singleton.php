@@ -77,9 +77,6 @@
             $sql = "SELECT * FROM users WHERE username LIKE BINARY " . "'" . $userInfo["username"] . "';";
             $res = $db->selectObject($sql);
 
-            if (is_object($res)) $res->social = true;
-            else if (is_array($res)) $res["social"] = true;  
-
             return $res;
         }
 

@@ -36,6 +36,8 @@
                 <br>
                 <input id="username" ng-model="lg_username_inp" class="authInput" name="username" type="text" placeholder="Usuario ">
                 <input id="password" ng-model="lg_passwd_inp"  class="authInput" name="password" type="password" placeholder="Contraseña ">
+                <br>
+                <div ng-show="lg_error" id="errorDiv">{{ lg_error_msg }}</div>
                 <br id="errorBrLogin">
                 <input type="button" value="Iniciar Sesión" id="loginBtn" ng-click="checkLogin()">
             </form>

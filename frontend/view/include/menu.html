@@ -1,18 +1,22 @@
 <header>
     <div class="wrap-header zerogrid">
         <div class="row" id="menuRow">
-            <div id="cssmenu" ng-class="{'hide': viewMenu}">
-                <ul>
-                    <li class='active'><a href="#/home">Inicio</a></li>
-                    <li><a href="#/shop">Vehículos</a></li>
-                    <li><a href="#/contact">Contactanos</a></li>
-                    <li>
-                        <a class="fa fa-search sIcon" ng-click="showMenu()"></a>
-                    </li>
-                    <li id="user">
-                        <a href="#/auth" id="userIcon" class="fas fa-user-circle"></a>
-                    </li>
-                </ul>
+            <div id="cssmenu" class="menuWrapper" ng-class="{'hide': viewMenu}">
+                <ul class="menuItems">
+                    <li><a href='#/home' data-item='home'>Inicio</a></li>
+                    <li><a href='#/shop' data-item='shop'>Tienda</a></li>
+                    <li><a href='#/contact' data-item='contact'>Contactanos</a></li>
+                    <li ng-show="authSetting"><a href='#/auth'><i class="fas fa-user-circle"></i></a></li>
+                    <li ng-show="usrSetting" class="avatar">
+                        <a href="#">
+                            <img src="{{ usr_info.avatar }}" class="avatar-img" alt="Avatar">
+                        </a>
+                        <ul class="dropdown">
+                          <li><a href="#">Perfil</a></li>
+                          <li><a href="#">Cerrar Sesión</a></li>
+                        </ul>
+                      </li>
+                  </ul>
             </div>
             <a href='#/home' class="logo"><img src="frontend/view/images/logo.png" /></a>
             <div class="search-menu" id="searchMn" ng-class="{'hide': !viewMenu}">
@@ -39,5 +43,10 @@
                 </button>
             </div>
         </div>
+    </div>
+
+
+    <div>
+        <h1>{{ usr_info }}</h1>
     </div>
 </header>
