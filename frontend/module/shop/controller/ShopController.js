@@ -1,14 +1,15 @@
-app.controller('shopController', ($scope, $rootScope, $routeParams, $route, $timeout, cfpLoadingBar, list, filters, shopServices) => {
-    list[0].forEach((car) => {
-        let userLikes = shopServices.getUserLikes();
-        for (let i = 0; i < userLikes.length; i++) {
-            if (car.id == userLikes[i].id) {
-                car.liked = 1;
-            } else {
-                car.liked = 0;
+app.controller('shopController', async ($scope, $rootScope, $routeParams, $route, $timeout, cfpLoadingBar, list, filters, shopServices) => {
+    await shopServices.getUserLikes().then((data) => {
+        list[0].forEach((car) => {
+            for (let i = 0; i < data.length; i++) {
+                console.log(car.id == data[i].id, car.id, data[i].id);
+                if (car.id == data[i].id) {
+                    car.liked = 1;
+                } else {
+                    car.liked = 0;
+                }
             }
-        }
-        console.log(list[0]);
+        })
     })
 
 
