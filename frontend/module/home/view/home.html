@@ -11,7 +11,7 @@
                     </div>
                     <div class="swiper row">
                         <div class="swiper-wrapper" id="logo">
-                            <div class="swiper-slide m-slider__item" ng-repeat="item in slideC track by $index">
+                            <div class="swiper-slide m-slider__item" ng-repeat="item in slideC track by $index" ng-click="toShop()">
                                 <div class="m-card" id="{{ item.id_brand }}">
                                     <div class="m-card__header" ng-style="{'background-image':'url(frontend/{{ item.url_brand }})'}"></div>
                                     <div class="m-card__body">{{ item.brand_name }}</div>
@@ -42,14 +42,14 @@
                                 <span>Nuestras Categorias</span>
                             </h2>
                         </div>
-                        <div class="post c-align" id="{{ category.id_cat }}" ng-repeat="category in sliderCat track by $index">
+                        <div class="post c-align" id="{{ item.id_cat }}" ng-click="toShop()" ng-repeat="item in sliderCat track by $index">
                             <div class="col-1-2 align-category">
-                                <img src=" frontend/{{ category.url_cat }}">
+                                <img src=" frontend/{{ item.url_cat }}">
                             </div>
                             <div class="col-1-2">
                                 <div class="wrapper">
-                                    <h3>{{ category.cat_name }}</h3>
-                                    <p>{{ category.description }}</p>
+                                    <h3>{{ item.cat_name }}</h3>
+                                    <p>{{ item.description }}</p>
                                 </div>
                             </div>
                         </div>
@@ -66,11 +66,11 @@
                         </div>
                         <div class="swiper row">
                             <div class="swiper-wrapper" id="logo">
-                                <div class="swiper-slide m-slider__item" ng-repeat="type in slideType track by $index">
-                                    <div class="wrap-col item cat" id="{{ type.id_type }}">
-                                        <i class="{{ type.icon_class }}" aria-hidden="true"></i>
-                                        <h3>{{ type.type_name }}</h3>
-                                        <p>{{ type.description }}</p>
+                                <div class="swiper-slide m-slider__item" ng-repeat="item in slideType track by $index">
+                                    <div class="wrap-col item cat" id="{{ item.id_type }}" ng-click="toShop()">
+                                        <i class="{{ item.icon_class }}" aria-hidden="true"></i>
+                                        <h3>{{ item.type_name }}</h3>
+                                        <p>{{ item.description }}</p>
                                     </div>
                                 </div>
                             </div>

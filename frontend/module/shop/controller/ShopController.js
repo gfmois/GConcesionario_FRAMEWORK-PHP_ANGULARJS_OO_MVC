@@ -1,17 +1,23 @@
 app.controller('shopController', async ($scope, $rootScope, $routeParams, $route, $timeout, cfpLoadingBar, list, filters, shopServices) => {
-    await shopServices.getUserLikes().then((data) => {
-        list[0].forEach((car) => {
-            for (let i = 0; i < data.length; i++) {
-                console.log(car.id == data[i].id, car.id, data[i].id);
-                if (car.id == data[i].id) {
-                    car.liked = 1;
-                } else {
-                    car.liked = 0;
+    if (localStorage.getItem('token') != null) {
+        await shopServices.getUserLikes().then((data) => {
+            list[0].forEach((car) => {
+                car.liked = 0;
+                for (let i = 0; i < data.length; i++) {
+                    if (car.id === data[i].id) {
+                        car.liked = 1;
+                    } 
+    
+                    continue
                 }
-            }
-        })
-    })
-
+            })
+    
+            // FIXME: Not working auto-likes
+            $scope.cars = list?.length > 0 ? list[0] : [];
+        }) 
+    } else {
+        $scope.cars = list?.length > 0 ? list[0] : [];
+    }
 
     let path = $route.current.originalPath.split('/');
     const start = () => {
@@ -84,8 +90,6 @@ app.controller('shopController', async ($scope, $rootScope, $routeParams, $route
     }
 
     // ----------> SHOP <------------
-
-    $scope.cars = list?.length > 0 ? list[0] : [];
     $scope.totalFilters = []
     $scope.filterName = [
         "Marcas", "Modelos", "Tipos", "Carroceria", "Categoria"
@@ -138,6 +142,7 @@ app.controller('shopController', async ($scope, $rootScope, $routeParams, $route
 
     $scope.setLike = function() {
         shopServices.setLike(this.car.id).then((result) => {
+            console.log(result);
             this.car.liked = result;
         })
     }

@@ -40,7 +40,7 @@
             <div class="text " id="info ">
                 <h3>{{ car.brand_name }} {{ car.model_name }}</h3>
                 <button class="bn54" ng-class="{'liked': car.liked == 1}" ng-click="setLike()">
-                    <span class="bn54span">Me Gusta  <i class="fas fa-heart"></i></span>
+                    <span class="bn54span">{{car.liked}}<i class="fas fa-heart"></i></span>
                 </button>
             </div>
         </article>

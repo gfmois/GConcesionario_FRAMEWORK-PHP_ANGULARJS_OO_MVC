@@ -30,6 +30,20 @@ app.controller('homeController', ($rootScope, $scope, $window, carousel, categor
 
     };    
 
+    $scope.toShop = function() {
+        let obj = JSON.parse(localStorage.getItem('filters'));
+        
+        for (let i = 0; i < Object.keys(obj).length; i++) {
+            obj[Object.keys(obj)[i]] = [];
+            if (Object.keys(obj)[i] == Object.keys(this.item)[0]) {
+                obj[Object.keys(obj)[i]] = [this.item[Object.keys(obj)[i]]]
+            }
+        }
+
+        localStorage.setItem('filters', JSON.stringify(obj));
+        location.href = '#/shop';
+    }
+
     $rootScope.loadMore();
 
 })
