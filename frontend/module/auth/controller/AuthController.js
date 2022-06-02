@@ -27,14 +27,13 @@ app.controller('authController', ($scope, $rootScope, $routeParams, $route, auth
                     confirmButtonText: 'Está bien, llevame al inicio.',
                 }).then(okay => {
                     if (okay) {
-                        location.href = "#/home";
+                        location.reload()
                    }})
             }
         })
     }
     
     $scope.checkLogin = function() {
-        console.log($scope.username);
     }
 
     $scope.checkRegister = () => {

@@ -1,5 +1,5 @@
 app.controller('shopController', async ($scope, $rootScope, $routeParams, $route, $timeout, cfpLoadingBar, list, filters, shopServices) => {
-    if (localStorage.getItem('token') != null) {
+    if (localStorage.getItem('token') != null && !$route.current.$$route.originalPath.includes('/details/')) {
         await shopServices.getUserLikes().then((data) => {
             list[0].forEach((car) => {
                 car.liked = 0;
@@ -65,9 +65,15 @@ app.controller('shopController', async ($scope, $rootScope, $routeParams, $route
 
         shopServices.getCarDetails(checkID).then((data) => {
             $rootScope.carDetails = data;
+            console.log(data);
+            $rootScope.relatedCars = data.related_cars
         });
 
         location.href = "#/details/" + checkID;
+    }
+
+    $scope.changeDetailsCar = function() {
+        location.href = "#/details/" + this.item.id;
     }
     
     if (path[1] == "details") {
@@ -141,10 +147,23 @@ app.controller('shopController', async ($scope, $rootScope, $routeParams, $route
     }
 
     $scope.setLike = function() {
-        shopServices.setLike(this.car.id).then((result) => {
-            console.log(result);
-            this.car.liked = result;
-        })
+        if (localStorage.getItem('token') != null) {
+            shopServices.setLike(this.car.id).then((result) => {
+                console.log(result);
+                this.car.liked = result;
+            })
+        } else {
+            Swal.fire({
+                title: 'Enhorabuena has encontrado una función para usuarios registrados',
+                text: "¿Quieres registrarte? ¿O ya tienes una cuenta?",
+                icon: 'info',
+                confirmButtonText: 'Vamos a ello',
+            }).then((okay) => {
+                if (okay.isConfirmed) {
+                    location.href = "#/auth";
+                }
+            })
+        }
     }
     
     function set_hlight_filters() {

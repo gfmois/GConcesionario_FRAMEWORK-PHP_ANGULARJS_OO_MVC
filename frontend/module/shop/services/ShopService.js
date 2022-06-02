@@ -40,10 +40,12 @@ app.factory('shopServices', ['services', '$rootScope', '$route', (services, $roo
             
             if (typeof data[2] == "object" && data[2].length > 0) {
                 data[2].forEach(item => {
+                    console.log(item);
                     details.related_cars.push({
                         id: item.id,
                         brand: item.brand_name,
-                        model: item.model_name
+                        model: item.model_name,
+                        image: item.carUrl
                     })
                 })
             }

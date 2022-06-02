@@ -25,9 +25,7 @@ app.controller('homeController', ($rootScope, $scope, $window, carousel, categor
     $rootScope.limit = 0;
     $rootScope.loadMore = function() {
         homeService.getNews();
-        console.log(homeService.getNews());
         $rootScope.limit += 3;
-
     };    
 
     $scope.toShop = function() {

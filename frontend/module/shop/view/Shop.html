@@ -80,11 +80,22 @@
                 <span>{{ carDetails.brand }}</span>
                 <h1>{{ carDetails.model }}</h1>
                 <p>
-                    <a href="http://192.168.1.175/GConcesionario_FRAMEWORK_ANGULARJS_OO_MVC/#/home/"><button class="bn632-hover bn19">Pedir Cita</button></a>
+                    <a href="#/home/"><button class="bn632-hover bn19">Pedir Cita</button></a>
                 </p>
             </div>
         </div>
     </main>
+    <br>
+    <div class="relatedCars">
+        <h3>Relacionados</h3>
+        <br>
+        <article class="card" ng-repeat="item in relatedCars" ng-click="changeDetailsCar()">
+            <img src="frontend/{{ item.image }}" style="height: 119px; width: 198px;">
+            <div class="text" id="info">
+                <h3>{{item.brand}} {{item.model}}</h3>
+            </div>
+        </article>
+    </div>
 </div>
 
 <div id="map"></div>

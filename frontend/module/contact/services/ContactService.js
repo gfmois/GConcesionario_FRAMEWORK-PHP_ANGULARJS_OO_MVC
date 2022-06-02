@@ -9,8 +9,9 @@ app.factory('contactServices', ['services', '$rootScope', 'toastr', (services, $
             theme: theme,
             text: text
         }).then((response) => {
-            if (response.result.code != 200) toastr.error('Hubo un error al mandar el mensaje, intentelo mas tarde porfavor.');
-            else toastr.success('Mensaje enviado correctamente, nos pondremos en contacto con usted.')
+            
+            // if (response.result.code != 200) toastr.error('Hubo un error al mandar el mensaje, intentelo mas tarde porfavor.');
+            // else toastr.success('Mensaje enviado correctamente, nos pondremos en contacto con usted.')
 
             location.href = "#/home"
             window.location.reload()

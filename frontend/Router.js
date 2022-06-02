@@ -36,7 +36,7 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider', ($routeProvider, cfpLoadi
         })
         .when('/details/:id', {
             templateUrl: "frontend/module/shop/view/Shop.html",
-            css: ['frontend/view/css/details.css', 'frontend/view/css/thumbCarousel.css', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css', 'frontend/view/css/buttons.css'],
+            css: ['frontend/view/css/details.css', 'frontend/view/css/thumbCarousel.css', 'https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css', 'frontend/view/css/buttons.css', 'frontend/view/css/shopList.css'],
             controller: "shopController",
             resolve: {
                 list:() => {},
