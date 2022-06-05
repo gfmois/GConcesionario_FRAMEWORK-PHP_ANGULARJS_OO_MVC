@@ -15,7 +15,6 @@
         static $_instance;
 
         private function __construct() {
-            // $this->iniFile = parse_ini_file('model/Config.ini', true);
             $this->iniFile = parse_ini_file('model/Config.ini', true);
         }
 
@@ -52,7 +51,7 @@
 
         public function generateVerificationMail(String $name, String $account, String $link) {
             $mail = new PHPMailer(true);
-    
+
             try {
                 $mail->isSMTP();
                 $mail->SMTPAuth     = true;
@@ -85,5 +84,7 @@
             }
         }
     }
+
+    Mailer::getInstance()->generateVerificationMail("Juan", "daw.moisesguerola@gmail.com", "test", "test");
 
 ?>

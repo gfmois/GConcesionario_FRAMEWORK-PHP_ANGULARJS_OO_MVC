@@ -68,6 +68,7 @@ app.factory('searchServices', ['services', '$rootScope', (services, $rootScope) 
         }
 
         localStorage.setItem('filters', JSON.stringify(filters));
+        location.href = "#/shop";
         
     }
     

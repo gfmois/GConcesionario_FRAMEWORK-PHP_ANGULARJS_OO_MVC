@@ -130,5 +130,33 @@
             $sql = "SELECT password FROM users WHERE username LIKE " . "'" . $args . "'";
             return $db->list($db->select($sql))[0]["password"];
         }
+
+        public function getPasswdVerification(Connection $db, $args) {
+            $passwd = "SELECT password FROM users WHERE username LIKE BINARY '" . $args[0]["username"] . "'";
+            $result = $db->list($db->select($passwd))[0];
+
+
+            if (password_verify($args[1], $result["password"])) {
+                return [
+                    "result" => [
+                        "user" => $args[0]["username"],
+                        "message" => "Contraseña correcta",
+                        "code" => 823
+                    ]
+                ];
+            } 
+
+            return [
+                "result" => [
+                    "message" => "Contraseña incorrecta",
+                    "code" => 712
+                ]
+            ];
+        }
+
+        public function getChangePasswd(Connection $db, $args) {
+            $sql = "UPDATE users SET password = " . "'" . password_hash($args[0], PASSWORD_DEFAULT, ["cost" => 12]) . "' WHERE username LIKE BINARY " . "'" . $args[1] . "'";
+            return $db->select($sql);
+        }
     }
 ?>

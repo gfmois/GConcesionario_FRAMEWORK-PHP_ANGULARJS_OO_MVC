@@ -13,7 +13,6 @@
         }
 
         function verification() {
-            // print_r($_POST);
             echo json_encode(common::loadModel('AuthModel', 'loadVerification', $_POST['token']));
         }
 
@@ -27,6 +26,10 @@
 
         function isVerificated() {
             echo json_encode(common::loadModel('AuthModel', 'loadIsVerificated', $_POST));
+        }
+
+        function change_passwd() {
+            echo json_encode(common::loadModel('AuthModel', 'loadChangePasswd', [apache_request_headers()["token"], $_POST['actual'], $_POST['new'], $_POST["ck_new"]]));
         }
 
     }

@@ -1,4 +1,5 @@
 #scrollNews {
-    max-height: 300px;
-    overflow-y:scroll;
+    max-height: 305px;
+    overflow-y: scroll;
+    max-width: 100%;
 }

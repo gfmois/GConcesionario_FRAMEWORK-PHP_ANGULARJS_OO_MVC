@@ -11,17 +11,20 @@ app.controller('shopController', async ($scope, $rootScope, $routeParams, $route
                     continue
                 }
             })
-    
-            // FIXME: Not working auto-likes
-            $scope.cars = list?.length > 0 ? list[0] : [];
-        }) 
-    } else {
-        $scope.cars = list?.length > 0 ? list[0] : [];
-    }
 
+        }) 
+    } 
+
+    $scope.cars = list?.length > 0 ? list[0] : [];
+    
     let path = $route.current.originalPath.split('/');
     const start = () => {
-        cfpLoadingBar.start();
+        if (path[1] == "shop") {
+            cfpLoadingBar.start();
+        } else {
+            cfpLoadingBar.set(1);
+            cfpLoadingBar.complete();
+        }
     }
 
     const complete = () => {

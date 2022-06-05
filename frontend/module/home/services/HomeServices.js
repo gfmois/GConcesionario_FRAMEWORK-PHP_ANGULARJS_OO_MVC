@@ -36,6 +36,8 @@ app.factory('homeService', ['services', '$rootScope', (services, $rootScope) => 
             data.articles.forEach((article) => {
                 $rootScope.news.push(article)
             })
+
+            console.log($rootScope.news);
         })
     }
 }])

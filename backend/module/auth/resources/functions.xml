@@ -32,4 +32,8 @@
         <name>socialLogin</name>
         <uri>socialLogin</uri>
     </function>
+    <function>
+        <name>change_passwd</name>
+        <uri>change_passwd</uri>
+    </function>
 </functions>

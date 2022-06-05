@@ -55,7 +55,8 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider', ($routeProvider, cfpLoadi
         })
         .when('/profile', {
             templateUrl: 'frontend/module/auth/view/Profile.html',
-            css: [],
+            css: ['frontend/view/css/profile.css'],
+            controller: 'profileController',
         })
         .when("/contact", {
             templateUrl: "frontend/module/contact/view/contact.html",

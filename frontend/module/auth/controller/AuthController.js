@@ -32,9 +32,6 @@ app.controller('authController', ($scope, $rootScope, $routeParams, $route, auth
             }
         })
     }
-    
-    $scope.checkLogin = function() {
-    }
 
     $scope.checkRegister = () => {
         let usr_obj = {
@@ -84,6 +81,7 @@ app.controller('authController', ($scope, $rootScope, $routeParams, $route, auth
 
         if (typeof lg_result.then == "function") {
             lg_result.then((msg) => {
+                console.log(msg);
                 localStorage.setItem('token', msg);
                 $scope.usr_status = true;
                 location.reload()

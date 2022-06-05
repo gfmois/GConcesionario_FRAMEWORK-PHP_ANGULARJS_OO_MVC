@@ -148,5 +148,43 @@
                 ]];
 
         }
+        
+        function chgePasswdBLL($actual) {
+            $passwd_res = $this->authDAO->getPasswdVerification($this->db, [AuthBLL::getInstance()->checkTokenBLL($actual[0]), $actual[1]]);
+
+            if ($actual[1] != $actual[2]) {
+                if ($passwd_res["result"]["code"] == 823 && $actual[3] == true) {
+                    if ($this->authDAO->getChangePasswd($this->db, [$actual[2], $passwd_res["result"]["user"]])) {
+                        return [
+                            "result" => [
+                                "message" => "Contraseña cambiada",
+                                "code" => 823
+                            ]
+                        ];
+                    } else {
+                        return [
+                            "result" => [
+                                "message" => "Error al cambiar contraseña",
+                                "code" => 824
+                            ]
+                        ];
+                    }
+                }
+    
+                return [
+                    "result" => [
+                        "message" => "Contraseña actual incorrecta",
+                        "code" => 824
+                    ]
+                ];
+            } else {
+                return [
+                    "result" => [
+                        "message" => "No puedes actualizar la contraseña a la actual",
+                        "code" => 824
+                    ]
+                ];
+            }
+        }
     }
 ?>

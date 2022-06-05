@@ -35,5 +35,9 @@
         public function loadIsVerificated($args) {
             return $this->bll->checkIfVerificated($args);
         }
+
+        public function loadChangePasswd($args) {
+            return $this->bll->chgePasswdBLL($args);
+        }
     }
 ?>
