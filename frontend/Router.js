@@ -1,8 +1,17 @@
-let app = angular.module('GConcesionario_FRAMEWORK_ANGULARJS_OO_MVC', ['ngRoute', 'toastr', 'routeStyles', 'angular-loading-bar']);
+let app = angular.module('GConcesionario_FRAMEWORK_ANGULARJS_OO_MVC', ['ngRoute', 'toastr', 'routeStyles', 'angular-loading-bar', 'auth0.auth0']);
 
-app.config(['$routeProvider', 'cfpLoadingBarProvider', ($routeProvider, cfpLoadingBarProvider) => {
+app.config(['$routeProvider', 'cfpLoadingBarProvider', 'angularAuth0Provider', ($routeProvider, cfpLoadingBarProvider, angularAuth0Provider) => {
     cfpLoadingBarProvider.includeSpinner = false;
     cfpLoadingBarProvider.latencyThreshold = 500;
+
+    angularAuth0Provider.init({
+        clientID: "dPVXErytsisi3Iw5xV6pS4NyRFIVU7GA",
+        domain: "dev--h21qj3n.us.auth0.com",
+        responseType: 'token id_token',
+        redirectUri: "http://localhost/GConcesionario_FRAMEWORK_ANGULARJS_OO_MVC/#/auth",
+        scope: 'openid profile email'
+    });
+
     $routeProvider
         .when("/home", {
             templateUrl: "frontend/module/home/view/home.html",
@@ -58,6 +67,11 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider', ($routeProvider, cfpLoadi
             css: ['frontend/view/css/profile.css'],
             controller: 'profileController',
         })
+        .when('/recover', {
+            templateUrl: 'frontend/module/auth/view/Recover.html',
+            css: ['frontend/view/css/recover.css'],
+            controller: 'authController',
+        })
         .when("/contact", {
             templateUrl: "frontend/module/contact/view/contact.html",
             css: "frontend/view/css/contact.css",
@@ -89,10 +103,16 @@ app.run(($rootScope, searchServices, authService) => {
         authService.getUserInfo().then((usr_info) => {
             $rootScope.usr_info = usr_info;
         })
+
     }
+
+    authService.handleAuthentication().then((data) => {
+        localStorage.setItem('token', data.idToken);
+    })
 
     $rootScope.close_sesion = function() {
         localStorage.removeItem('token');
-        location.reload()
+        location.reload();
+        location.href = "#/home";
     }
 })

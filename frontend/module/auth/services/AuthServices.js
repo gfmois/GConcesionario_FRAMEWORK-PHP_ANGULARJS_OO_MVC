@@ -1,13 +1,19 @@
-app.factory('authService', ['services', '$rootScope', (services, $rootScope) => {
+app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services, $rootScope, angularAuth0) => {
     let service = { 
         rg_checkUserInfo: rg_checkUserInfo,
         lg_checkUserInfo: lg_checkUserInfo,
         verifyUser: verifyUser,
-        getUserInfo: getUserInfo
+        getUserInfo: getUserInfo,
+        logout: logout,
+        login: login,
+        getID_Token: getID_Token,
+        getAccessToken: getAccessToken,
+        handleAuthentication: handleAuthentication
     }
     return service;
 
     function rg_checkUserInfo(user_inf) {
+        console.log(user_inf);
         let complete = [];
         for (let i = 0; i < Object.keys(user_inf).length; i++) {
             if (Object.keys(user_inf)[i] != "avatar") {
@@ -67,4 +73,49 @@ app.factory('authService', ['services', '$rootScope', (services, $rootScope) => 
             return msg;
         })
     }
+    
+    function getID_Token() {
+        return ID_token;
+    }
+
+    function getAccessToken() {
+        return accessToken;
+    }
+  
+    function login() {
+        angularAuth0.authorize({
+            connection: $rootScope.lg_opt
+        });
+    }
+
+    // FIXME: Acabar si no existe crear usuario
+    function handleAuthentication() {
+        return new Promise((resolve, reject) => {
+            angularAuth0.parseHash((err, authResult) => {
+              if (authResult && authResult.accessToken && authResult.idToken) {
+                  resolve(authResult);
+              } else if (err) {
+                    throw new Error(`Error: ${err.error}. Check the console for further details.`);
+              } else {
+                throw new Error(`Unknown error`);
+              }
+            });
+        })
+    }
+
+    function logout() {
+        // Remove isLoggedIn flag from localStorage
+        localStorage.removeItem('token');
+        // Remove tokens and expiry time
+        accessToken = '';
+        idToken = '';
+        expiresAt = 0;
+  
+        angularAuth0.logout({
+          returnTo: window.location.origin
+        });
+  
+      }
+    
+
 }])

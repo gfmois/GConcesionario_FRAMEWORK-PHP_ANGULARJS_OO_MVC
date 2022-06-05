@@ -82,13 +82,19 @@ app.controller('authController', ($scope, $rootScope, $routeParams, $route, auth
         if (typeof lg_result.then == "function") {
             lg_result.then((msg) => {
                 console.log(msg);
-                localStorage.setItem('token', msg);
-                $scope.usr_status = true;
-                location.reload()
-                location.href = "#/home";
+                if (typeof msg.result == "object") {
+                    $scope.lg_error = true;
+                    $scope.lg_error_msg = msg.result.message;
+                } else {
+                    localStorage.setItem('token', msg);
+                    $scope.usr_status = true;
+                    location.reload()
+                    location.href = "#/home";
+                }
             })
         } else {
-            console.log(lg_result);
+            $scope.lg_error = true;
+            $scope.lg_error_msg = lg_result;
         }
     }
 
@@ -97,6 +103,16 @@ app.controller('authController', ($scope, $rootScope, $routeParams, $route, auth
         $scope.verifyView = false;
 
         location.href = '#/auth';
+    }
+
+    $scope.s_gh_login = () => {
+        $rootScope.lg_opt = 'github';
+        authService.login()
+    }
+    
+    $scope.s_gm_login = () => {
+        $rootScope.lg_opt = 'google-oauth2';
+        authService.login()
     }
 
 })

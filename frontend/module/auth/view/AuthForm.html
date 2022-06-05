@@ -26,10 +26,10 @@
             <form class="authForm" id="lForm">
                 <h1>Iniciar Sesión</h1>
                 <div class="social-container">
-                    <a class="social githubCl" href="#" style="text-decoration: none;">
+                    <a class="social githubCl" style="text-decoration: none; cursor: pointer;" ng-click="s_gh_login()">
                         <i class="fab fa-brands fa-github" aria-hidden="true"></i>
                     </a>
-                    <a class="social gmailCl" href="#" style="text-decoration: none;">
+                    <a class="social gmailCl" style="text-decoration: none; cursor: pointer;" ng-click="s_gm_login()">
                         <i class="fab fa-google-plus-g" aria-hidden="true"></i>
                     </a>
                 </div>
@@ -40,13 +40,14 @@
                 <div ng-show="lg_error" id="errorDiv">{{ lg_error_msg }}</div>
                 <br id="errorBrLogin">
                 <input type="button" value="Iniciar Sesión" id="loginBtn" ng-click="checkLogin()">
+                <a href="#/recover">¿Contraseña olvidada? Recuperela</a>
             </form>
         </div>
         <div class="overlay-container">
             <div class="overlay">
                 <div class="overlay-panel overlay-left">
                     <h1>¡Bienvenido de nuevo!</h1>
-                    <p>Para mantenerse conectado con nosotros, inicie sesión con su información personal</p>
+                    <p>Para mantenerse conectado con nosotros, Iniciar sesión con su información personal</p>
                     <input class="ghost" type="button" id="signIn" value="Iniciar Sesión" ng-click="swapMenu = !swapMenu">
                 </div>
                 <div class="overlay-panel overlay-right">
