@@ -3,6 +3,7 @@
 
     // SITE
     define('SITE_ROOT', $_SERVER['DOCUMENT_ROOT'] . PROJECT);
+
     define('SITE_PATH', 'http://' . $_SERVER['HTTP_HOST'] . PROJECT);
 
     // PRODUCTION

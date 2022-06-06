@@ -13,7 +13,6 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
     return service;
 
     function rg_checkUserInfo(user_inf) {
-        console.log(user_inf);
         let complete = [];
         for (let i = 0; i < Object.keys(user_inf).length; i++) {
             if (Object.keys(user_inf)[i] != "avatar" && Object.keys(user_inf)[i] != "password" && Object.keys(user_inf)[i] != "ck_passwd") {
@@ -22,9 +21,9 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
         }
 
        if (!complete.includes(false)) {
-           console.log();
             if (user_inf.password === user_inf.ck_passwd) {
                 return services.post('auth', 'register', user_inf).then((res) => {
+                    console.log(res);
                     return res
                 })
             } else {
@@ -58,6 +57,7 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
         }
 
         return services.post('auth', 'login', user_inf).then((result) => {
+            console.log(result);
             return result;
         })
     }
@@ -89,7 +89,6 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
         });
     }
 
-    // FIXME: Acabar si no existe crear usuario
     function handleAuthentication() {
         return new Promise((resolve, reject) => {
             angularAuth0.parseHash((err, authResult) => {
@@ -111,7 +110,7 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
         expiresAt = 0;
   
         angularAuth0.logout({
-          returnTo: window.location.origin
+          returnTo: '#/home'
         });
   
       }

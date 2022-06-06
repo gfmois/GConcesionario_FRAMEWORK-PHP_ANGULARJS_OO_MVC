@@ -81,7 +81,6 @@ app.controller('authController', ($scope, $rootScope, $routeParams, $route, auth
 
         if (typeof lg_result.then == "function") {
             lg_result.then((msg) => {
-                console.log(msg);
                 if (typeof msg.result == "object") {
                     $scope.lg_error = true;
                     $scope.lg_error_msg = msg.result.message;

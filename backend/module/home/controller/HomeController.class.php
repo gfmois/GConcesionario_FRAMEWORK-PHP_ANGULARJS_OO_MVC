@@ -1,10 +1,5 @@
 <?php
     class HomeController {
-        function view() {
-            common::loadView('top_page_home.html', VIEW_PATH_INC . 'content.html');
-            common::loadView('top_page_home.html', VIEW_PATH_HOME . 'homepage.html');
-        }
-        
         function carousel() {
             echo json_encode(common::loadModel('HomeModel', 'loadCarousel'));
         }

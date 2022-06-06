@@ -6,10 +6,8 @@ app.controller('profileController', ($scope, $rootScope, $routeParams, $route, p
             ck_new: $scope.new_passwd == $scope.ck_passwd ? true : false
         }
 
-        // FIXME: Acabar y poder cambiar la contraseña.
        if ($scope.new_passwd == $scope.ck_passwd && $scope.new_passwd != $scope.actual_passwd) {
            profileServices.check_passwd(obj).then((msg) => {
-               console.log(msg);
                if (msg.result.code == 823) {
                     Swal.fire({
                         title: 'Enhorabuena!',

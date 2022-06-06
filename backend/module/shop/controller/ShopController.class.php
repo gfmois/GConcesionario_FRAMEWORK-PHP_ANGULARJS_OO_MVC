@@ -1,11 +1,6 @@
 <?php
     class ShopController {
-        // function view() {
-        //     common::loadView('top_page.html', VIEW_PATH_SHOP . 'Shop.html');
-        // }
-
         function allCars() {
-            // print_r($_POST);
             echo json_encode(common::loadModel('ShopModel', 'loadAllCars', $_POST['pagination'] ?? 1));
         }
 
@@ -18,7 +13,6 @@
         }
 
         function fromFilters() {
-            // print_r($_POST['filters']);
             echo json_encode(common::loadModel('ShopModel', 'loadFromFilters', [$_POST['filters'] ?? [], $_POST['pagination'] ?? 0]));
         }
 

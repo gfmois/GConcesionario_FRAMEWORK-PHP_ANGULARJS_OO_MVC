@@ -84,7 +84,4 @@
             }
         }
     }
-
-    Mailer::getInstance()->generateVerificationMail("Juan", "daw.moisesguerola@gmail.com", "test", "test");
-
 ?>

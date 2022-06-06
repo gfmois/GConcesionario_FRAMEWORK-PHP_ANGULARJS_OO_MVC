@@ -106,6 +106,7 @@ app.run(($rootScope, searchServices, authService) => {
 
     }
 
+    // authService.logout();
     authService.handleAuthentication().then((data) => {
         let real_obj = {
             username: data.idTokenPayload.nickname,
@@ -124,6 +125,7 @@ app.run(($rootScope, searchServices, authService) => {
                     }).then((msg) => {
                         $rootScope.social = true;
                         localStorage.setItem('token', msg);
+                        location.reload()
                     })
                 }
             })

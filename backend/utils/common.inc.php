@@ -1,11 +1,7 @@
 <?php
     class common {
-        public static function loadError() {
-            // require_once(VIEW_PATH_INC . 'top_page.html');
-            // require_once(VIEW_PATH_INC . 'header.html');
-            // require_once(VIEW_PATH_INC . 'menu.html');
-            // require_once(VIEW_PATH_INC . 'error404.html');
-            // require_once(VIEW_PATH_INC . 'footer.html');
+        public static function loadError($error) {
+            echo $error;
         }
 
         public static function loadView($topPage, $view) {
@@ -16,8 +12,8 @@
                 require_once(VIEW_PATH_INC . 'menu.html');
                 require_once ($view);
                 require_once (VIEW_PATH_INC . 'footer.html');
-            }else {
-                self::loadError();
+            } else {
+                self::loadError($topPage);
             }
         }
 
