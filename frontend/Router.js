@@ -107,7 +107,34 @@ app.run(($rootScope, searchServices, authService) => {
     }
 
     authService.handleAuthentication().then((data) => {
-        localStorage.setItem('token', data.idToken);
+        let real_obj = {
+            username: data.idTokenPayload.nickname,
+            email: data.idTokenPayload.email,
+            avatar: data.idTokenPayload.picture,
+            password: null,
+            ck_passwd: null,
+            uuid: data.idTokenPayload.sub.split('|')[1],
+        }
+
+        if (typeof authService.rg_checkUserInfo(real_obj).then == "function" ) {
+            authService.rg_checkUserInfo(real_obj).then((data) => {
+                if (data.result.code != 404 || data.result.code != 56) {
+                    authService.lg_checkUserInfo({
+                        username: real_obj.username
+                    }).then((msg) => {
+                        $rootScope.social = true;
+                        localStorage.setItem('token', msg);
+                    })
+                }
+            })
+        } else {
+            Swal.fire({
+                title: 'Error',
+                text: authService.rg_checkUserInfo(real_obj),
+                icon: 'error',
+                confirmButtonText: 'Está bien'
+            })
+        }
     })
 
     $rootScope.close_sesion = function() {

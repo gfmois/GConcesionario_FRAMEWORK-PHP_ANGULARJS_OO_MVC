@@ -16,12 +16,13 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
         console.log(user_inf);
         let complete = [];
         for (let i = 0; i < Object.keys(user_inf).length; i++) {
-            if (Object.keys(user_inf)[i] != "avatar") {
+            if (Object.keys(user_inf)[i] != "avatar" && Object.keys(user_inf)[i] != "password" && Object.keys(user_inf)[i] != "ck_passwd") {
                 complete.push(Object.values(user_inf)[i] != null);
             }
         }
 
        if (!complete.includes(false)) {
+           console.log();
             if (user_inf.password === user_inf.ck_passwd) {
                 return services.post('auth', 'register', user_inf).then((res) => {
                     return res
@@ -96,8 +97,6 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
                   resolve(authResult);
               } else if (err) {
                     throw new Error(`Error: ${err.error}. Check the console for further details.`);
-              } else {
-                throw new Error(`Unknown error`);
               }
             });
         })

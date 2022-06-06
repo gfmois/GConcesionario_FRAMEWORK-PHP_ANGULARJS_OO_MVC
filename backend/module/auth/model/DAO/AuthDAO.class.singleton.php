@@ -30,18 +30,23 @@
                     ]
                 ]);
             } else {
-                $social = 0;
-
                 if (array_key_exists("uuid", $userInfo)) {
                     $tokenUuid = $userInfo["uuid"];
                     $social = 1;
                 } else $tokenUuid = common::generate_token_secure(21);
 
-                if (array_key_exists("password", $userInfo) && $userInfo["password"] == null) $passwd = null;
-                else $passwd = password_hash($userInfo['password'], PASSWORD_DEFAULT, ["cost" => 12]);
+                if (array_key_exists("password", $userInfo) && $userInfo["password"] == null) {
+                    $passwd = null;
+                    $verified = 1;
+                    $social = 1;
+                } else {
+                    $passwd = password_hash($userInfo['password'], PASSWORD_DEFAULT, ["cost" => 12]);
+                    $social = 0;
+                    $verified = 0;
+                }
 
-                if (array_key_exists("verified", $userInfo) && $userInfo["verified"] == true) $verified = 1;
-                else $verified = 0; 
+                // if (array_key_exists("verified", $userInfo) && $userInfo["verified"] == true) $verified = 1;
+                // else $verified = 0; 
                 
                 $tokenEmail = common::generate_token_secure(21);
 
@@ -49,6 +54,7 @@
                 VALUES (" . "'" . $tokenUuid . "', " . $verified . ", '" . $userInfo['username'] . "', 
                 '" . $passwd . 
                 "', " . "'" . $userInfo['email'] . "', '" . $tokenEmail . "', '" . $userInfo['avatar'] . "', '" . $social . "')";
+                
 
                 
                 $stmt_register = $db->select($query);
