@@ -164,5 +164,15 @@
             $sql = "UPDATE users SET password = " . "'" . password_hash($args[0], PASSWORD_DEFAULT, ["cost" => 12]) . "' WHERE username LIKE BINARY " . "'" . $args[1] . "'";
             return $db->select($sql);
         }
+
+        public function recoverPasswd(Connection $db, $args) {
+            $sql = "SELECT * FROM users WHERE email LIKE BINARY " . "'" . $args . "'";
+            $res = $db->select($sql);
+            
+            $return =  $db->list($res);
+
+            if (count($return) > 0) return $return[0]["token_email"];
+            else return null;
+        }
     }
 ?>

@@ -8,7 +8,8 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
         login: login,
         getID_Token: getID_Token,
         getAccessToken: getAccessToken,
-        handleAuthentication: handleAuthentication
+        handleAuthentication: handleAuthentication,
+        recoverPassword: recoverPassword
     }
     return service;
 
@@ -66,6 +67,30 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
     function verifyUser(token) {
         return services.post('auth', 'verification', {'token': token}).then((msg) => {
             return msg;
+        })
+    }
+
+    function recoverPassword(email) {
+        services.post('auth', 'recover', {'email': email}).then((msg) => {
+            if (msg.result.code != 823) {
+                Swal.fire({
+                    title: 'Ups...',
+                    text: msg.result.message,
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar',
+                })
+            } else {
+                Swal.fire({
+                    title: 'Todo fue bien',
+                    text: msg.result.message,
+                    icon: 'success',
+                    confirmButtonText: 'Aceptar',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.href = '#/auth';
+                    }
+                })
+            }
         })
     }
 

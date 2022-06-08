@@ -28,5 +28,9 @@
             echo json_encode(common::loadModel('AuthModel', 'loadChangePasswd', [apache_request_headers()["token"], $_POST['actual'], $_POST['new'], $_POST["ck_new"]]));
         }
 
+        function recover() {
+            echo json_encode(common::loadModel('AuthModel', 'loadRecover', $_POST["email"]));
+        }
+
     }
 ?>

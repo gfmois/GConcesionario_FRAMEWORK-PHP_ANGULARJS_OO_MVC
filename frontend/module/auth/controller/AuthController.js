@@ -1,13 +1,13 @@
 app.controller('authController', ($scope, $rootScope, $routeParams, $route, authService) => {
-
     if ($rootScope.usrSetting == true) {
         location.href = "#/home";
     } else {
         $rootScope.usr_info = null;
     }
 
-    let path = $route.current.originalPath.split('/');
     
+    let path = $route.current.originalPath.split('/');
+
     $scope.swapMenu = false;
     $scope.rg_error = false;
 
@@ -31,7 +31,14 @@ app.controller('authController', ($scope, $rootScope, $routeParams, $route, auth
                    }})
             }
         })
+    } else if (path[1] == "recover" && $routeParams.id != null) {
+        $rootScope.showRcver = false;
+        $rootScope.recover_inp = true;
+    } else if (path[1] == "recover" && $routeParams.id == null) {
+        $rootScope.showRcver = true;
+        $rootScope.recover_inp = false;
     }
+
 
     $scope.checkRegister = () => {
         let usr_obj = {
@@ -112,6 +119,23 @@ app.controller('authController', ($scope, $rootScope, $routeParams, $route, auth
     $scope.s_gm_login = () => {
         $rootScope.lg_opt = 'google-oauth2';
         authService.login()
+    }
+
+    $scope.rcv_passwd = function() {
+        if ($scope.email == null || $scope.email == undefined || $scope.email.length == 0) {
+            Swal.fire({
+                title: 'Ups...',
+                text: "Por favor, ingrese un correo electrónico.",
+                icon: 'error',
+                confirmButtonText: 'Aceptar',
+            })
+        } else {
+            authService.recoverPassword($scope.email)
+        }
+    }
+
+    $scope.changePsw_recover = () => {
+        console.log($scope.passwd_recover, $scope.repasswd_recover);
     }
 
 })

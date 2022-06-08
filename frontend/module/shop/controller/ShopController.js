@@ -15,7 +15,9 @@ app.controller('shopController', async ($scope, $rootScope, $routeParams, $route
         }) 
     } 
 
-    $scope.cars = list?.length > 0 ? list[0] : [];
+    setTimeout(() => {
+        $scope.cars = list?.length > 0 ? list[0] : [];
+    }, 0)
     
     let path = $route.current.originalPath.split('/');
     const start = () => {

@@ -36,4 +36,8 @@
         <name>change_passwd</name>
         <uri>change_passwd</uri>
     </function>
+    <function>
+        <name>recover</name>
+        <uri>recover</uri>
+    </function>
 </functions>

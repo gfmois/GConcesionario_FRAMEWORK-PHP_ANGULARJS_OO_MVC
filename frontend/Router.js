@@ -72,6 +72,11 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider', 'angularAuth0Provider', (
             css: ['frontend/view/css/recover.css'],
             controller: 'authController',
         })
+        .when('/recover/:id', {
+            templateUrl: 'frontend/module/auth/view/Recover.html',
+            css: ['frontend/view/css/recover.css'],
+            controller: 'authController',
+        })
         .when("/contact", {
             templateUrl: "frontend/module/contact/view/contact.html",
             css: "frontend/view/css/contact.css",

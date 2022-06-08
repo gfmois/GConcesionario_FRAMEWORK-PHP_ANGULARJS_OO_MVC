@@ -24,7 +24,7 @@
             $return = json_decode($this->authDAO->account_register($this->db, $args));
 
             if ($return->result->code == 23) {
-                // if ($return->result->social == false) $this->mailer->generateVerificationMail($args["username"], $args["email"], "http://localhost/GConcesionario_FRAMEWORK_ANGULARJS_OO_MVC/#/verify/" . $return->result->token);
+                if ($return->result->social == false) $this->mailer->generateVerificationMail($args["username"], $args["email"], "http://localhost/GConcesionario_FRAMEWORK_ANGULARJS_OO_MVC/#/verify/" . $return->result->token);
                 return [
                     "result" => [
                         "message" => $return->result->message,
@@ -51,6 +51,13 @@
                 "result" => [
                     "message" => "Usario no Existe",
                     "code" => 245 
+                ]
+            ];
+
+            if (array_key_exists('verificated', $stmt) && $stmt['verificated'] == 0) return [
+                "result" => [
+                    "message" => "Usuario no verificado",
+                    "code" => 246
                 ]
             ];
             
@@ -185,6 +192,34 @@
                     ]
                 ];
             }
+        }
+
+        function recoverBLL($args) {
+            $res = $this->authDAO->recoverPasswd($this->db, $args);
+            
+            if ($res != null) {
+                Mailer::getInstance()->generateVerificationMail("Estimado Cliente", $args, "http://localhost/GConcesionario_FRAMEWORK_ANGULARJS_OO_MVC/#/recover/" . $res, "Recuperar contraseña", "Recuperar contraseña");
+                return [
+                    "result" => [
+                        "message" => "Correo enviado, revise la bandeja de entrada",
+                        "code" => 823
+                    ]
+                ];
+            } else {
+                return [
+                    "result" => [
+                        "message" => "Usuario no existe",
+                        "code" => 824
+                    ]
+                ];
+            }
+
+            return [
+                "result" => [
+                    "message" => "Error al enviar correo",
+                    "code" => 824
+                ]
+            ];
         }
     }
 ?>

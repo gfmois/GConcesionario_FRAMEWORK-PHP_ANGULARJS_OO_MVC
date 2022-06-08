@@ -39,5 +39,9 @@
         public function loadChangePasswd($args) {
             return $this->bll->chgePasswdBLL($args);
         }
+
+        public function loadRecover($args) {
+            return $this->bll->recoverBLL($args);
+        }
     }
 ?>

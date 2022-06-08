@@ -124,6 +124,7 @@ app.factory('shopServices', ['services', '$rootScope', '$route', (services, $roo
     
     function getUserLikes() {
         return services.reqHeader('shop', 'likes', localStorage.getItem('token').split('"')[1]).then((likes) => {
+            console.log(likes);
             return likes;
         })
     }

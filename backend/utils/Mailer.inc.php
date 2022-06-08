@@ -5,8 +5,6 @@
 
     use \Mailjet\Resources;
 
-
-    // require_once 'vendor/autoload.php';
     require_once 'vendor/autoload.php';
 
 
@@ -49,9 +47,9 @@
             $response->success() && var_dump($response->getData());
         }
 
-        public function generateVerificationMail(String $name, String $account, String $link) {
+        public function generateVerificationMail(String $name, String $account, String $link, String $subject = "Verificar cuenta", String $title = "Bienvenido a GConcesionario ") {
             $mail = new PHPMailer(true);
-
+            
             try {
                 $mail->isSMTP();
                 $mail->SMTPAuth     = true;
@@ -62,14 +60,14 @@
                 $mail->Password     = $this->iniFile["SMTP"]["password"];
 
                 // Recipient
-                $mail->setFrom("gconcesionario@no-reply.com", "Verification Link");
+                $mail->setFrom("gconcesionario@no-reply.com", $subject);
                 $mail->addAddress($account, $name);
                 // $mail->addReplyTo($account, $);
                 
                 // Content
                 $mail->isHTML(true);
-                $mail->Subject      = "Welcome to GConcesionario " . $name;
-                $mail->Body         = "Click in this link to verificate the account: " . $link;
+                $mail->Subject      = $title . $name;
+                $mail->Body         = "Pulse en este link para continuar: " . $link;
 
                 $mail->send();
 
