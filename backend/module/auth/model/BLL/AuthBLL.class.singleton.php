@@ -240,5 +240,10 @@
                 ];
             }
         }
+
+        public function checkUserSessionBLL() {
+            return $this->authDAO->checkSession();
+        }
+
     }
 ?>

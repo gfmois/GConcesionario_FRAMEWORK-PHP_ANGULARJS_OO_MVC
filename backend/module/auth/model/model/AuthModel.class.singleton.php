@@ -47,5 +47,9 @@
         public function loadRecoverPasswd($args) {
             return $this->bll->recoverPasswdBLL($args);
         }
+
+        public function loadCheckUserSession() {
+            return $this->bll->checkUserSessionBLL();
+        }
     }
 ?>

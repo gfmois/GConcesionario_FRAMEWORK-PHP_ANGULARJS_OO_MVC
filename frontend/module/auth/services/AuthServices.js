@@ -10,7 +10,8 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
         getAccessToken: getAccessToken,
         handleAuthentication: handleAuthentication,
         recoverPassword: recoverPassword,
-        changePsw_recover: changePsw_recover
+        changePsw_recover: changePsw_recover,
+        checkUserSession: checkUserSession
     }
     return service;
 
@@ -96,7 +97,6 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
     }
 
     function changePsw_recover(token_email, user_inf) {
-         console.log(user_inf);
         for (let i = 0; i < Object.keys(user_inf).length; i++) {
             if (Object.values(user_inf)[i]?.length < 8 || Object.values(user_inf)[i]?.length > 32) {
                 $rootScope.recover_error = true;
@@ -115,7 +115,6 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
 
         $rootScope.recover_error = false;
         $rootScope.recover_error_msg = "";
-        console.log('A');
         services.post('auth', 'recover_passwd', {'token_email': token_email, 'password': user_inf.passwd}).then((msg) => {
             Swal.fire({
                 title: 'Todo fue bien',
@@ -165,9 +164,7 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
     }
 
     function logout() {
-        // Remove isLoggedIn flag from localStorage
         localStorage.removeItem('token');
-        // Remove tokens and expiry time
         accessToken = '';
         idToken = '';
         expiresAt = 0;
@@ -176,7 +173,24 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
           returnTo: '#/home'
         });
   
-      }
+    }
+
+    function checkUserSession() {
+        $rootScope.status = 1;
+        return services.get('auth', 'checkUserSession').then((msg) => {
+            if (msg.result.code == 712) {
+                localStorage.removeItem('token')
+                Swal.fire({
+                    title: 'Se cerró sessión por inactividad.',
+                    text: 'Vuelva a iniciar sesión si desea.',
+                    icon: 'warning',
+                    confirmButtonText: 'Vale',
+                }).then((op) => {
+                    location.reload();
+                })
+            }
+        })
+    }
     
 
 }])

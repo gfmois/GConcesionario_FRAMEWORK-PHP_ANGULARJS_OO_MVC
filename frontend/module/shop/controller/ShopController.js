@@ -13,12 +13,12 @@ app.controller('shopController', async ($scope, $rootScope, $routeParams, $route
             })
 
         }) 
-    } 
-
+    }
+    
     setTimeout(() => {
         $scope.cars = list?.length > 0 ? list[0] : [];
     }, 0)
-    
+
     let path = $route.current.originalPath.split('/');
     const start = () => {
         if (path[1] == "shop") {
@@ -70,7 +70,6 @@ app.controller('shopController', async ($scope, $rootScope, $routeParams, $route
 
         shopServices.getCarDetails(checkID).then((data) => {
             $rootScope.carDetails = data;
-            console.log(data);
             $rootScope.relatedCars = data.related_cars
         });
 
@@ -154,7 +153,6 @@ app.controller('shopController', async ($scope, $rootScope, $routeParams, $route
     $scope.setLike = function() {
         if (localStorage.getItem('token') != null) {
             shopServices.setLike(this.car.id).then((result) => {
-                console.log(result);
                 this.car.liked = result;
             })
         } else {

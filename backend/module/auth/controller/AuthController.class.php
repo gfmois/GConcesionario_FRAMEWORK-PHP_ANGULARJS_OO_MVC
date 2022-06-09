@@ -36,5 +36,8 @@
            echo json_encode(common::loadModel('AuthModel', 'loadRecoverPasswd', [$_POST['token_email'], $_POST["password"]]));
         }
 
+        function checkUserSession() {
+            echo json_encode(common::loadModel('AuthModel', 'loadCheckUserSession'));
+        }
     }
 ?>

@@ -181,5 +181,34 @@
             if (count($res_l) > 0) return $return;
             else return null;
         }
+
+        public function checkSession() {
+            if (!isset($_SESSION["time"])) {
+                return [
+                    "result" => [
+                        "message" => "No hay sesión iniciada",
+                        "code" => 712
+                    ]
+                ];
+            }
+            else {
+                if ((time() - $_SESSION["time"]) >= 900) {
+                    return [
+                        "result" => [
+                            "message" => "Sesión expirada",
+                            "code" => 712
+                        ]
+                    ];
+                } else {
+                    return [
+                        "result" => [
+                            "message" => "Usuario Activo",
+                            "code" => 823
+                        ]
+                    ];
+                }
+            }
+        }
+
     }
 ?>

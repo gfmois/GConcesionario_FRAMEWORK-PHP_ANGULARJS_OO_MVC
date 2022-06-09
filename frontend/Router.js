@@ -87,7 +87,7 @@ app.config(['$routeProvider', 'cfpLoadingBarProvider', 'angularAuth0Provider', (
         })
 }]);
 
-app.run(($rootScope, searchServices, authService) => {
+app.run(($rootScope, $interval, services, searchServices, authService) => {
     $rootScope.viewMenu = false;
     $rootScope.options = []
     searchServices.getFilterOptions();
@@ -110,8 +110,7 @@ app.run(($rootScope, searchServices, authService) => {
         })
 
     }
-
-    // authService.logout();
+    
     authService.handleAuthentication().then((data) => {
         let real_obj = {
             username: data.idTokenPayload.nickname,
@@ -144,8 +143,15 @@ app.run(($rootScope, searchServices, authService) => {
         }
     })
 
+    $interval(() => {
+        if (localStorage.getItem('token') != null) {
+          authService.checkUserSession();
+        } 
+    }, 10000)
+
     $rootScope.close_sesion = function() {
         localStorage.removeItem('token');
+        authService.logout()
         location.reload();
         location.href = "#/home";
     }
