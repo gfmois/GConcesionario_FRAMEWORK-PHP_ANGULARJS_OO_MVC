@@ -43,5 +43,9 @@
         public function loadRecover($args) {
             return $this->bll->recoverBLL($args);
         }
+
+        public function loadRecoverPasswd($args) {
+            return $this->bll->recoverPasswdBLL($args);
+        }
     }
 ?>

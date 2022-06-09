@@ -9,7 +9,8 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
         getID_Token: getID_Token,
         getAccessToken: getAccessToken,
         handleAuthentication: handleAuthentication,
-        recoverPassword: recoverPassword
+        recoverPassword: recoverPassword,
+        changePsw_recover: changePsw_recover
     }
     return service;
 
@@ -93,6 +94,43 @@ app.factory('authService', ['services', '$rootScope', 'angularAuth0', (services,
             }
         })
     }
+
+    function changePsw_recover(token_email, user_inf) {
+         console.log(user_inf);
+        for (let i = 0; i < Object.keys(user_inf).length; i++) {
+            if (Object.values(user_inf)[i]?.length < 8 || Object.values(user_inf)[i]?.length > 32) {
+                $rootScope.recover_error = true;
+                $rootScope.recover_error_msg = "La contraseña debe tener entre 8 y 32 caracteres.";
+                return;
+            } else if (Object.values(user_inf)[i] == null || Object.values(user_inf)[i] == undefined) {
+                $rootScope.recover_error = true;
+                $rootScope.recover_error_msg = "Por favor, ingrese una contraseña.";
+                return;
+            } else if (user_inf.passwd != user_inf.repasswd) {
+                $rootScope.recover_error = true;
+                $rootScope.recover_error_msg = "Las contraseñas no coinciden.";
+                return;
+            }
+        }
+
+        $rootScope.recover_error = false;
+        $rootScope.recover_error_msg = "";
+        console.log('A');
+        services.post('auth', 'recover_passwd', {'token_email': token_email, 'password': user_inf.passwd}).then((msg) => {
+            Swal.fire({
+                title: 'Todo fue bien',
+                text: msg.result.message,
+                icon: 'success',
+                confirmButtonText: 'Aceptar',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    location.href = '#/auth';
+                }
+            })
+        })
+
+    }
+
 
     function getUserInfo() {
         return services.reqHeader('auth', 'checkToken', localStorage.getItem('token').split('"')[1]).then((msg) => {

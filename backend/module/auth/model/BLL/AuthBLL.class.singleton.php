@@ -221,5 +221,24 @@
                 ]
             ];
         }
+
+        public function recoverPasswdBLL($args) {
+            $username = $this->authDAO->recoverPasswd($this->db, $args, 1);
+            if ($this->authDAO->getChangePasswd($this->db, [$args[1], $username])) {
+                return [
+                    "result" => [
+                        "message" => "Contraseña cambiada",
+                        "code" => 823
+                    ]
+                ];
+            } else {
+                return [
+                    "result" => [
+                        "message" => "Error al cambiar contraseña",
+                        "code" => 824
+                    ]
+                ];
+            }
+        }
     }
 ?>

@@ -135,7 +135,14 @@ app.controller('authController', ($scope, $rootScope, $routeParams, $route, auth
     }
 
     $scope.changePsw_recover = () => {
-        console.log($scope.passwd_recover, $scope.repasswd_recover);
+        let obj = {
+            passwd: $scope.passwd_recover,
+            repasswd: $scope.repasswd_recover,
+        }
+
+        $scope.recover_error = false;
+        $scope.recover_error_msg = "";
+        authService.changePsw_recover($routeParams.id, obj)
     }
 
 })

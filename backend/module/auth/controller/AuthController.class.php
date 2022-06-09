@@ -32,5 +32,9 @@
             echo json_encode(common::loadModel('AuthModel', 'loadRecover', $_POST["email"]));
         }
 
+        function recover_passwd() {
+           echo json_encode(common::loadModel('AuthModel', 'loadRecoverPasswd', [$_POST['token_email'], $_POST["password"]]));
+        }
+
     }
 ?>

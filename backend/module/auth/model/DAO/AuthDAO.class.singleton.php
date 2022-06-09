@@ -165,13 +165,20 @@
             return $db->select($sql);
         }
 
-        public function recoverPasswd(Connection $db, $args) {
-            $sql = "SELECT * FROM users WHERE email LIKE BINARY " . "'" . $args . "'";
-            $res = $db->select($sql);
+        public function recoverPasswd(Connection $db, $args, $op = 0) {
+            if ($op == 0) {
+                $sql = "SELECT * FROM users WHERE email LIKE BINARY " . "'" . $args . "'";
+                $res = $db->select($sql);
+            } else if ($op == 1) {
+                $sql = "SELECT * FROM users WHERE token_email LIKE BINARY " . "'" . $args[0] . "'";
+                $res = $db->select($sql);
+            }
             
-            $return =  $db->list($res);
+            $res_l =  $db->list($res);
 
-            if (count($return) > 0) return $return[0]["token_email"];
+            $return = $op == 0 ? $res_l[0]["token_email"] : $res_l[0]["username"];
+
+            if (count($res_l) > 0) return $return;
             else return null;
         }
     }
